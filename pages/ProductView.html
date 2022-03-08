@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="../styles/ProductView.css">
+<div boundField="Name"></div>
+<div class="productDetails">
+    <div class="productImage"><img id="mainProductImage"></div>
+    <div style="flex: 5; display: flex; flex-direction: column;">
+        <div boundField="Description"></div>
+        <div id="selectedVariantName"></div>
+        <div boundField="Variants" fieldTemplate="productVariantTemplate"></div>
+    </div>
+    <div class="rightMenu">
+        <select id="quantitySelector" class="dropdown"></select>
+        <div class="button addToCartButton">Add to Cart</button></div>
+        <div boundField="Price"></div>
+    </div>
+    <template id="productVariantTemplate">
+        <div class="productVariant">
+            <div class="variantDetails">
+                <div class="productImage"><img></div>
+                <div boundField="Variants.Name"></div>
+                <div boundField="Variants.Images" fieldTemplate="productVariantImages" arrayRenderType="first"></div>
+                <div boundField="Variants.Price"></div>
+            </div>
+            <template id="productVariantImages">
+                <img boundField="Variants.Images" class="thumbnail">
+            </template>
+        </div>
+    </template>
+</div>

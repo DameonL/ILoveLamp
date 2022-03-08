@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/amiracle.css">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <shop-list></shop-list>
+    <script src="../src/fragments/navbar.js" async defer></script>
+    <script src="../src/CreateItem.js" type="module" async defer></script>
+    <div fieldType="document">
+        <div>Name:<input type="text" boundField="name" fieldType="stringValue"></div>
+        <div>
+            <div>Description:</div>
+            <textarea boundField="description" cols="80" rows="40" fieldType="stringValue"></textarea>
+        </div>
+        <div boundField="variants" fieldType="arrayValue">
+            <div boundField="values" fieldType="mapValue">
+                Variation 1:
+                <div>
+                    Name:
+                    <input type="text" boundField="name" fieldType="stringValue">
+                </div>
+                <div>
+                    Description:
+                    <input type="text" boundField="description" fieldType="stringValue">
+                </div>
+                <div>
+                    Image:
+                    <input type="text" boundField="image" fieldType="stringValue">
+                </div>
+                <div>
+                    Price:
+                    <input type="number" boundField="price" fieldType="doubleValue">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <button id="createButton">Create</button>
+</body>
+
+</html>

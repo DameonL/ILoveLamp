@@ -1,0 +1,58 @@
+product-view > * {
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+product-view > [boundField="name"] {
+    text-align: center;
+    font-size: 2em;
+}
+
+.productDetails {
+    display: flex;
+    column-gap: 5px;
+}
+
+.productImage {
+    overflow: hidden;
+    flex: 2;
+}
+
+#mainProductImage {
+    width: 100%;
+}
+
+product-view > .productDetails > .productImage > [boundField="Image"] {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+product-view > .productDetails > [boundField="Description"] {
+    padding: 10px 10px 10px 10px;
+}
+
+product-view > .productDetails > .rightMenu > [boundField="Price"] {
+    text-align: center;
+}
+
+product-view > .productDetails > .rightMenu {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+[boundField="Variants"] {
+    display: flex;
+}
+
+[boundField="Variants.Name"] {
+    display: none;
+}
+
+.selectedVariant {
+    outline: 2px solid black;
+}
+
+.productVariant {
+    margin: 5px 5px 5px 5px;
+}
