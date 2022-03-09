@@ -1,4 +1,4 @@
-import NewItemBinder from "./NewItemBinder.js";
+import ItemBinder from "./ItemBinder.js";
 
 class ProductView extends HTMLElement {
     #productId = "";

@@ -1,17 +1,30 @@
-function processFields(startElement) {
-    let newItem = {};
-    newItem.fields = {};
+import CreateItemBinder from "./CreateItemBinder.js";
 
-    let boundFields = startElement.querySelectorAll("[boundField]");
+function processFields(startElement) {
+    console.log(startElement);
+    let startFieldType = startElement.getAttribute("fieldType");
+    let newItem = {};
+    let boundFields = null;
+    if ((startFieldType == "mapValue") || (startFieldType == "document")) {
+        newItem.fields = {};
+        boundFields = startElement.querySelectorAll("[boundField]");
+    } else {
+        boundFields = [startElement];
+    }
 
     for (let field of boundFields) {
         let parentField = getParentField(field);
-        if (parentField != startElement) continue;
+        console.log(field);
 
         let fieldName = field.getAttribute("boundField");
         let fieldType = field.getAttribute("fieldType");
         let fieldItem = fieldTypeHandlers[fieldType](field);
-        newItem.fields[fieldName] = fieldItem;
+        console.log(fieldItem);
+        if ((startFieldType == "mapValue") || (startFieldType == "document")) {
+            newItem.fields[fieldName] = fieldItem;
+        } else {
+            newItem[fieldName] = fieldItem;
+        }
     }
 
     return newItem;
@@ -23,7 +36,8 @@ function getParentField(field) {
         "document",
         "arrayValue",
         "mapValue"
-    ]
+    ];
+
     while (currentElement) {
         currentElement = currentElement.parentElement;
 
@@ -64,13 +78,16 @@ let fieldTypeHandlers = {
     "mapValue" : (field) => {
         let output = {}
         output.mapValue = processFields(field);
-        console.log(output);
         return output;
     }
 }
 
+let itemBinder = new CreateItemBinder(document.querySelector(`[fieldType="document"]`));
+
 document.querySelector("#createButton").addEventListener("click", () => {
-    let serializedItem = processFields(document.querySelector(`[fieldType="document"]`));
+    let serializedItem = itemBinder.getItemFromDocument();
+    console.log(serializedItem);
+    return;
 
     var request = new XMLHttpRequest();
     var url = "https://firestore.googleapis.com/v1/projects/amiracle-cleaners/databases/(default)/documents/products";

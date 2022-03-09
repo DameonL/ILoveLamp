@@ -1,13 +1,4 @@
-shop-list {
-    display: flex;
-}
-
-.shopProductThumb {
-    width: 200px;
-}
-
 body {
-    background-color: rgb(225, 245, 255);
     margin: unset;
 }
 

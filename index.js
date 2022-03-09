@@ -2,7 +2,7 @@ import ILoveLampNavbar from "../src/ILoveLampNavbar.js";
 import ShopList from "../src/ShopList.js";
 import ProductView from "../src/ProductView.js";
 import ShoppingCart from "./src/ShoppingCart.js";
-customElements.define('shop-list', ShopList);
+customElements.define('shop-list', ShopList, );
 customElements.define('product-view', ProductView);
 customElements.define('shopping-cart', ShoppingCart);
 customElements.define('ilovelamp-navbar', ILoveLampNavbar);
@@ -14,7 +14,7 @@ window.addEventListener("hashchange", hashChanged);
 window.addEventListener("popstate", hashChanged);
 let pageIds = {
     "" : "pages/index.html",
-    "shop" : "pages/shop.html"
+    "Shop" : "pages/ShopList.html"
 }
 
 function hashChanged() {

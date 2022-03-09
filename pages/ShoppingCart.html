@@ -2,23 +2,34 @@
 <span id="showCartLink" tabindex="-1">🛒</span>
 <div id="shoppingCartBackground">
     <div id="shoppingCart">
-        <span class="closeButton" tabindex="-1">X</span>
-        <div>Cart</div>
+        <div class="shoppingCartHeader">
+            <div><h3>Shopping Cart</h3></div>
+            <div class="shoppingCartCloseButton" tabindex="-1">X</div>
+        </div>
         <div id="cartItemsRender"></div>
-        <div id="cartTotal"></div>
+        <div class="shoppingCartTotal">
+            <div>
+                <span>Total:</span>
+                <span id="cartTotal"></span>
+            </div>
+        </div>
     </div>
 </div>
 <template id="cartProductTemplate">
-    <div>
-        <div boundField="name"></div>
-        <div boundField="shortDescription"></div>
-        <img boundField="image" class="thumbnail">
-        <div class="cartQuantity">
-            <div>Quantity:</div>
-            <div boundField="purchaseQuantity"></div>
-            <div class="button quantityPlus">+</div>
-            <div class="button quantityMinus">-</div>
+    <div class="shoppingCartItem">
+        <div class="shoppingCartItemInfo">
+            <div boundField="Name"></div>
+            <div class="shoppingCartVariantName" boundField="shortDescription"></div>
+            <img boundField="image" class="thumbnail">
+            <div class="cartQuantity">
+                <div>Quantity:</div>
+                <div class="button quantityPlus">+</div>
+                <div boundField="purchaseQuantity"></div>
+                <div class="button quantityMinus">-</div>
+                <div class="button" id="shoppingCartItemDeleteButton">Delete</div>
+            </div>
+            <hr>
         </div>
-        <div>Price: <span boundField="price"></span></div>
+        <div boundField="price" class="shoppingCartItemPrice"></div>
     </div>
 </template>

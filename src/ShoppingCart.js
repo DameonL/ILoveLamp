@@ -32,7 +32,7 @@ class ShoppingCart extends HTMLElement {
 
         let openButton = this.querySelector("#showCartLink");
         let cartElement = this.querySelector("#shoppingCartBackground");
-        let closeButton = cartElement.querySelector(".closeButton");
+        let closeButton = cartElement.querySelector(".shoppingCartCloseButton");
         openButton.addEventListener("click", this.#toggleVisible);
         closeButton.addEventListener("click", this.#toggleVisible);
     }
@@ -50,7 +50,8 @@ class ShoppingCart extends HTMLElement {
     updateTotal() {
         let totalPrice = 0;
         for (let renderedItem of this.#renderedCartItems) {
-            totalPrice += Number(renderedItem.key.item.fields.price.doubleValue.replace("$",""));
+            let price = renderedItem.key.item.fields.price.doubleValue.replace(/[^\d.]/g,"");
+            totalPrice += Number(price);
         }
         this.querySelector("#cartTotal").innerText = totalPrice.toLocaleString("en-us", {style: 'currency',currency: 'USD', minimumFractionDigits: 2});
     }
@@ -107,6 +108,12 @@ class ShoppingCart extends HTMLElement {
                     this.#renderCartItem(itemIndex);
                 }
             });
+
+            let deleteButton = newNode.querySelector("#shoppingCartItemDeleteButton");
+            deleteButton.addEventListener("click", () => {
+                this.#cartData.splice(this.#cartData.findIndex(item => item === cartItem), 1);
+                this.#displayCartItems();
+            });
     
         }
         item.fields.purchaseQuantity = { doubleValue: cartItem.purchaseQuantity };
@@ -116,7 +123,7 @@ class ShoppingCart extends HTMLElement {
         item.fields.price = { doubleValue: totalPrice.toLocaleString("en-us", {style: 'currency',currency: 'USD', minimumFractionDigits: 2}) };
         this.updateTotal();
 
-        let binder = new ItemBinder(item.fields, newNode);
+        let binder = new ItemBinder(item, newNode, cartItem.productId);
     }
 
     #getCartFromCookie() {

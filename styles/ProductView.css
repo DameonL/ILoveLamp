@@ -56,3 +56,7 @@ product-view > .productDetails > .rightMenu {
 .productVariant {
     margin: 5px 5px 5px 5px;
 }
+
+#selectedVariantName {
+    font-weight: bold;
+}

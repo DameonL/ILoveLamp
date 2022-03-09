@@ -21,22 +21,70 @@
     right: 5%;
     top: 5%;
     bottom: 5%;
+    font-size: 18px;
+    line-height: 1.3em;
+
 }
 
 #cartItemsRender {
     overflow-y: auto;
 }
 
-#shoppingCart .closeButton {
-    position: absolute;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    right: 10px;
-}
-
 .cartQuantity { 
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.shoppingCartItem {
+    padding: 10px 10px 10px 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.shoppingCartItemInfo {
+    flex: 3;
+}
+
+.shoppingCartItemPrice {
+    flex: 1;
+    margin-left: auto;
+    text-align: right;
+    font-weight: bold;
+}
+
+.shoppingCartItem > [boundField="Name"] {
+    overflow: hidden;
+}
+
+.shoppingCartHeader {
+    background-color: rgba(0, 68, 255, 0.15);
+    min-height: 2em;
+    display: flex;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.shoppingCartHeader > div {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.shoppingCartCloseButton {
+    margin-left: auto;
+    cursor: pointer;
+}
+
+#cartTotal {
+    padding: 10px 10px 10px 10px;
+}
+
+.shoppingCartTotal {
+    margin-left: auto;
+    text-align: right;
+    font-weight: bold;
+}
+
+.shoppingCartVariantName {
+    font-weight: bold;
 }

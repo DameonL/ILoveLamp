@@ -1,0 +1,37 @@
+shop-list {
+    display: flex;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.shopProductThumb {
+    width: 15vw;
+}
+
+.shopProductThumb > [boundField="image"]{
+    width: 100%;
+    height: auto;
+}
+
+.shopProductThumb > [boundField="name"] {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-height: 3.5em;
+    -webkit-line-clamp: 3;
+    -webkit-text-size-adjust: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.shopListPrice {
+    display: flex;
+}
+
+.shopListPriceDollars {
+    font-size: 22px;
+}
+
+.shopListPriceCents {
+    font-size: 14px;
+    margin-bottom: auto;
+}

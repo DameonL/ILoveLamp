@@ -1,12 +1,15 @@
 .navbarBackground {
     padding: 10px 10px 10px 10px;
-    min-height: 2em;
-    background: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 1) 75%, rgb(255, 255, 255, 0));
-    display: flex;
-    flex-direction: row;
+    min-height: 3em;
+    background: linear-gradient(rgb(225, 225, 255, 1), rgba(225, 225, 255, 1) 75%, rgb(225, 225, 255, 0));
     justify-content: space-evenly;
 
     transition: all 500ms ease-out;
+}
+
+.navbarLinks {
+    display: flex;
+    flex-direction: row;
 }
 
 .navbarLink {
@@ -17,4 +20,9 @@
     margin-bottom: auto;
     margin-left: auto;
     min-width: 50px;
+}
+
+.navbarLogo {
+    font-size: 48px;
+    font-family: Brush Script MT, Brush Script Std, cursive;
 }
