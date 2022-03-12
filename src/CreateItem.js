@@ -1,4 +1,4 @@
-import CreateItemBinder from "./CreateItemBinder.js";
+import ItemBinder from "./ItemBinder.js";
 
 function processFields(startElement) {
     console.log(startElement);
@@ -66,10 +66,11 @@ let fieldTypeHandlers = {
         output.arrayValue = {};
         output.arrayValue.values = [];
         let childElements = field.querySelectorAll(`[boundField]`);
-        for (let child of childElements) {
-            if (getParentField(child) != field) continue;
+        for (let childIndex in childElements) {
+            let childElement = childElements[childIndex];
+            if (getParentField(childElement) != field) continue;
             let newValue = {};
-            newValue[child.getAttribute("fieldType")] = processFields(child);
+            newValue[childElement.getAttribute("fieldType")] = processFields(childElement);
             output.arrayValue.values.push(newValue);
         }
 
@@ -82,15 +83,17 @@ let fieldTypeHandlers = {
     }
 }
 
-let itemBinder = new CreateItemBinder(document.querySelector(`[fieldType="document"]`));
+let bindingElement = document.querySelector(`[fieldType="document"]`);
+ItemBinder.bindForRead(bindingElement);
 
 document.querySelector("#createButton").addEventListener("click", () => {
-    let serializedItem = itemBinder.getItemFromDocument();
+    let serializedItem = itemBinder.getItemFromElement(bindingElement);
+    let postItem = {};
+    postItem.fields = serializedItem;
     console.log(serializedItem);
-    return;
 
     var request = new XMLHttpRequest();
-    var url = "https://firestore.googleapis.com/v1/projects/amiracle-cleaners/databases/(default)/documents/products";
+    var url = "https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/Products";
     request.open("POST", url, true);
     request.setRequestHeader("Content-Type", "application/json");
     request.onreadystatechange = function () {
@@ -98,5 +101,5 @@ document.querySelector("#createButton").addEventListener("click", () => {
             location.reload();
         }
     };
-    request.send(JSON.stringify(serializedItem));
+    request.send(JSON.stringify(postItem));
 });

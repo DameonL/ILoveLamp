@@ -29,7 +29,7 @@
         </div>
         <div>
             <div>Variants:</div>
-            <div boundField="Variants.arrayValue.values.mapValue.fields" fieldTemplate="productVariantTemplate" fieldAddButton="variantAddButton"></div>
+            <div boundField="Variants.arrayValue.values" fieldTemplate="productVariantTemplate" fieldAddButton="variantAddButton"></div>
             <div id="variantAddButton"><button>Add Variant</button></div>
         </div>
 
@@ -48,6 +48,29 @@
                         Images:
                         <div boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values" fieldTemplate="productVariantImageTemplate" fieldAddButton="variantImageAddButton"></div>
                         <div id="variantImageAddButton"><button>Add Image</button></div>
+                    </div>
+                    <div>
+                        Properties:
+                        <div>
+                            Color:
+                            <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields.Color.stringValue">
+                        </div>
+                        <div>
+                            Style:
+                            <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields.Style.stringValue">
+                        </div>
+                        <div>
+                            Material:
+                            <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields.Material.stringValue">
+                        </div>
+                        <div>
+                            Brand:
+                            <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields.Brand.stringValue">
+                        </div>
+                        <div>
+                            Special Feature:
+                            <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields.Special Feature.stringValue">
+                        </div>
                     </div>
                 </div>
     

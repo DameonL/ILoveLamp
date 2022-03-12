@@ -15,6 +15,11 @@ class ProductView extends HTMLElement {
     }
 
     #hashChanged = () => {
+        if (this.getRootNode().nodeName != "#document") {
+            window.removeEventListener("hashchange", this.#hashChanged);
+            return;
+        }
+
         let params = new URLSearchParams(window.location.hash.substring(1));
         if (params.has("product")) {
             this.#productId = params.get("product");
@@ -47,24 +52,43 @@ class ProductView extends HTMLElement {
 
         document.querySelector(".addToCartButton").addEventListener("click", addToCartFunction);
 
-        let binder = new NewItemBinder(product, this, this.#productId);
+        ItemBinder.bindItemToElement(product.fields, this, this.#productId);
 
         let mainImage = document.querySelector("#mainProductImage");
-        let firstVariantImage = document.querySelector(`img[boundField="Variants.Images"]`);
-        mainImage.src = firstVariantImage.src;
+        let firstVariantImage = document.querySelector(`img[boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values.stringValue"]`);
+        if (firstVariantImage) mainImage.src = firstVariantImage.src;
 
         let variants = document.querySelectorAll(`.productVariant`);
         let changeSelectedVariant = (newIndex) => {
             this.#selectedVariantIndex = newIndex;
+            document.querySelector("#selectedVariantPrice").innerText = this.#selectedVariant.mapValue.fields.Price.doubleValue;
+
+            let pricesToFormat = document.querySelectorAll("[formatItemPrice]").values();
+            for (let priceToFormat of pricesToFormat) {
+                let splitText = priceToFormat.innerText.split(".");
+                let leftSpan = document.createElement("span");
+                let rightSpan = document.createElement("span");
+                leftSpan.className = "productPriceLeft";
+                rightSpan.className = "productPriceRight";
+                leftSpan.innerText = splitText[0];
+                rightSpan.innerText = `.${splitText[1]}`;
+                priceToFormat.innerText = "";
+                priceToFormat.appendChild(leftSpan);
+                priceToFormat.appendChild(rightSpan);
+            }
+
             for (let variantIndex in variants) {
                 let variant = variants[variantIndex];
                 if (!variant.querySelector) continue;
 
-                let variantImage = variant.querySelector(`img[boundField="Variants.Images"]`);
-                let variantName = variant.querySelector(`div[boundField="Variants.Name"]`).innerText;
+                let variantImage = variant.querySelector(`img[boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values.stringValue"]`);
+                let variantName = variant.querySelector(`div[boundField="Variants.arrayValue.values.mapValue.fields.Name.stringValue"]`).innerText;
                 if (variantIndex == this.#selectedVariantIndex) {
                     variantImage.classList.add("selectedVariant");
                     document.querySelector(`#selectedVariantName`).innerText = variantName;
+                    let propertiesElement = document.querySelector("#selectedVariantProperties");
+                    propertiesElement.setAttribute("boundarrayindex", variantIndex);
+                    ItemBinder.bindItemToElement(product.fields, propertiesElement, this.#productId);
                 }
                 else {
                     variantImage.classList.remove("selectedVariant");
@@ -75,7 +99,7 @@ class ProductView extends HTMLElement {
         for (let variantIndex in variants) {
             let variant = variants[variantIndex];
             if (!variant.querySelector) continue;
-            let variantImage = variant.querySelector(`img[boundField="Variants.Images"]`);
+            let variantImage = variant.querySelector(`img[boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values.stringValue"]`);
 
             variant.addEventListener("mouseenter", () => {
                 mainImage.src = variantImage.src;

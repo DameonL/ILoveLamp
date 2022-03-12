@@ -31,8 +31,23 @@ product-view > .productDetails > [boundField="Description"] {
     padding: 10px 10px 10px 10px;
 }
 
-product-view > .productDetails > .rightMenu > [boundField="Price"] {
+#selectedVariantPrice {
     text-align: center;
+}
+
+.productPriceLeft {
+    font-size: 28px;
+}
+
+.productPriceLeft::before {
+    font-size: 22px;
+    content: "$";
+    vertical-align: top;
+}
+
+.productPriceRight {
+    margin-bottom: auto;
+    vertical-align: top;
 }
 
 product-view > .productDetails > .rightMenu {
@@ -41,7 +56,7 @@ product-view > .productDetails > .rightMenu {
     flex: 1;
 }
 
-[boundField="Variants"] {
+[boundField="Variants.arrayValue.values"] {
     display: flex;
 }
 
@@ -55,6 +70,7 @@ product-view > .productDetails > .rightMenu {
 
 .productVariant {
     margin: 5px 5px 5px 5px;
+    cursor: pointer;
 }
 
 #selectedVariantName {

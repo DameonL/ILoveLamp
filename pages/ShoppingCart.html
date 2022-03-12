@@ -18,18 +18,18 @@
 <template id="cartProductTemplate">
     <div class="shoppingCartItem">
         <div class="shoppingCartItemInfo">
-            <div boundField="Name"></div>
-            <div class="shoppingCartVariantName" boundField="shortDescription"></div>
-            <img boundField="image" class="thumbnail">
+            <div boundField="Name.stringValue"></div>
+            <div class="shoppingCartVariantName" boundField="shortDescription.stringValue"></div>
+            <img boundField="image.stringValue" class="thumbnail">
             <div class="cartQuantity">
                 <div>Quantity:</div>
                 <div class="button quantityPlus">+</div>
-                <div boundField="purchaseQuantity"></div>
+                <div boundField="purchaseQuantity.doubleValue"></div>
                 <div class="button quantityMinus">-</div>
                 <div class="button" id="shoppingCartItemDeleteButton">Delete</div>
             </div>
             <hr>
         </div>
-        <div boundField="price" class="shoppingCartItemPrice"></div>
+        <div boundField="price.doubleValue" class="shoppingCartItemPrice"></div>
     </div>
 </template>

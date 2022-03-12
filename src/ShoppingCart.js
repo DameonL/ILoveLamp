@@ -123,7 +123,7 @@ class ShoppingCart extends HTMLElement {
         item.fields.price = { doubleValue: totalPrice.toLocaleString("en-us", {style: 'currency',currency: 'USD', minimumFractionDigits: 2}) };
         this.updateTotal();
 
-        let binder = new ItemBinder(item, newNode, cartItem.productId);
+        ItemBinder.bindItemToElement(item.fields, newNode, cartItem.productId)
     }
 
     #getCartFromCookie() {

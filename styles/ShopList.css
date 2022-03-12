@@ -6,6 +6,7 @@ shop-list {
 
 .shopProductThumb {
     width: 15vw;
+    margin: 10px 10px 10px 10px;
 }
 
 .shopProductThumb > [boundField="image"]{
