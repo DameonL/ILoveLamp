@@ -10,7 +10,7 @@ class ProductView extends HTMLElement {
 
     constructor() {
         super();
-        window.addEventListener("hashchange", this.#hashChanged);
+        this.loadPage();
         this.#hashChanged();
     }
 
@@ -30,13 +30,12 @@ class ProductView extends HTMLElement {
         }
     }
 
-    async render() {
+    async loadPage() {
+        window.addEventListener("hashchange", this.#hashChanged);
         let pageHtml = await fetch("../pages/ProductView.html");
         this.innerHTML = await pageHtml.text();
-        let product = await this.getProductData(this.#productId);
-        this.#product = product;
 
-        let quantitySelector = document.querySelector(`#quantitySelector`);
+        let quantitySelector = this.querySelector(`#quantitySelector`);
         for (var i = 1; i <= 50; i++) {
             let optionElement = document.createElement("option");
             optionElement.innerText = i;
@@ -50,52 +49,23 @@ class ProductView extends HTMLElement {
             cart.addToCart({ productId: this.#productId, variant: this.#selectedVariantIndex, purchaseQuantity: quantitySelector.value });
         }
 
-        document.querySelector(".addToCartButton").addEventListener("click", addToCartFunction);
+        this.querySelector(".addToCartButton").addEventListener("click", addToCartFunction);
+    }
 
+    async render() {
+        this.innerHTML = "";
+        let product = await this.getProductData(this.#productId);
+        this.#product = product;
         ItemBinder.bindItemToElement(product.fields, this, this.#productId);
+        this.#hookVariants();
+        this.#changeSelectedVariant(this.#selectedVariantIndex);
+    }
 
+    #hookVariants() {
         let mainImage = document.querySelector("#mainProductImage");
         let firstVariantImage = document.querySelector(`img[boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values.stringValue"]`);
         if (firstVariantImage) mainImage.src = firstVariantImage.src;
-
         let variants = document.querySelectorAll(`.productVariant`);
-        let changeSelectedVariant = (newIndex) => {
-            this.#selectedVariantIndex = newIndex;
-            document.querySelector("#selectedVariantPrice").innerText = this.#selectedVariant.mapValue.fields.Price.doubleValue;
-
-            let pricesToFormat = document.querySelectorAll("[formatItemPrice]").values();
-            for (let priceToFormat of pricesToFormat) {
-                let splitText = priceToFormat.innerText.split(".");
-                let leftSpan = document.createElement("span");
-                let rightSpan = document.createElement("span");
-                leftSpan.className = "productPriceLeft";
-                rightSpan.className = "productPriceRight";
-                leftSpan.innerText = splitText[0];
-                rightSpan.innerText = `.${splitText[1]}`;
-                priceToFormat.innerText = "";
-                priceToFormat.appendChild(leftSpan);
-                priceToFormat.appendChild(rightSpan);
-            }
-
-            for (let variantIndex in variants) {
-                let variant = variants[variantIndex];
-                if (!variant.querySelector) continue;
-
-                let variantImage = variant.querySelector(`img[boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values.stringValue"]`);
-                let variantName = variant.querySelector(`div[boundField="Variants.arrayValue.values.mapValue.fields.Name.stringValue"]`).innerText;
-                if (variantIndex == this.#selectedVariantIndex) {
-                    variantImage.classList.add("selectedVariant");
-                    document.querySelector(`#selectedVariantName`).innerText = variantName;
-                    let propertiesElement = document.querySelector("#selectedVariantProperties");
-                    propertiesElement.setAttribute("boundarrayindex", variantIndex);
-                    ItemBinder.bindItemToElement(product.fields, propertiesElement, this.#productId);
-                }
-                else {
-                    variantImage.classList.remove("selectedVariant");
-                }
-            }
-        }
-
         for (let variantIndex in variants) {
             let variant = variants[variantIndex];
             if (!variant.querySelector) continue;
@@ -106,11 +76,54 @@ class ProductView extends HTMLElement {
             });
 
             variant.addEventListener("click", () => {
-                changeSelectedVariant(variantIndex);
+                this.#changeSelectedVariant(variantIndex);
             });
         }
+    }
 
-        changeSelectedVariant(this.#selectedVariantIndex);
+    #changeSelectedVariant(newIndex) {
+        document.querySelector("#selectedVariantPrice").innerText = this.#selectedVariant.mapValue.fields.Price.doubleValue;
+
+        this.#selectedVariantIndex = newIndex;
+        this.#renderVariants();
+        this.#formatPrices();
+    }
+
+    #renderVariants() {
+        let variants = document.querySelectorAll(`.productVariant`);
+        for (let variantIndex in variants) {
+            let variant = variants[variantIndex];
+            if (!variant.querySelector) continue;
+
+            let variantImage = variant.querySelector(`img[boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values.stringValue"]`);
+            let variantName = variant.querySelector(`div[boundField="Variants.arrayValue.values.mapValue.fields.Name.stringValue"]`).innerText;
+            if (variantIndex == this.#selectedVariantIndex) {
+                variantImage.classList.add("selectedVariant");
+                document.querySelector(`#selectedVariantName`).innerText = variantName;
+                let propertiesElement = document.querySelector("#selectedVariantProperties");
+                propertiesElement.setAttribute("boundarrayindex", variantIndex);
+                ItemBinder.bindItemToElement(this.#product.fields, propertiesElement, this.#productId);
+            }
+            else {
+                variantImage.classList.remove("selectedVariant");
+            }
+        }
+    }
+
+    #formatPrices() {
+        let pricesToFormat = document.querySelectorAll("[formatItemPrice]").values();
+        for (let priceToFormat of pricesToFormat) {
+            let splitText = priceToFormat.innerText.split(".");
+            let leftSpan = document.createElement("span");
+            let rightSpan = document.createElement("span");
+            leftSpan.className = "productPriceLeft";
+            rightSpan.className = "productPriceRight";
+            leftSpan.innerText = splitText[0];
+            rightSpan.innerText = `.${splitText[1]}`;
+            priceToFormat.innerText = "";
+            priceToFormat.appendChild(leftSpan);
+            priceToFormat.appendChild(rightSpan);
+        }
     }
 
     async getProductData() {

@@ -5,12 +5,14 @@
     <div style="flex: 5; display: flex; flex-direction: column;">
         <div id="selectedVariantName"></div>
         <div boundField="Variants.arrayValue.values" fieldTemplate="productVariantTemplate"></div>
-        <div boundField="Description.stringValue"></div>
+        <div><h4>Features:</h4></div>
         <div boundField="Variants.arrayValue.values">
             <div boundArrayIndex="0" id="selectedVariantProperties">
                 <div boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields" fieldTemplate="productPropertiesDisplay"></div>
             </div>
         </div>
+        <div><h4>About This Item:</h4></div>
+        <div boundField="Description.stringValue"></div>
     </div>
     <div class="rightMenu">
         <select id="quantitySelector" class="dropdown"></select>

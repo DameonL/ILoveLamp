@@ -1,6 +1,6 @@
 class ShopList extends HTMLElement {
     #products = null;
-    #productSizes = null;
+    #startIndex = 0;
 
     constructor() {
         super();
@@ -26,6 +26,7 @@ class ShopList extends HTMLElement {
     }
 
     renderProductData(productThumbTemplate) {
+        this.innerHTML = "";
         for (let product of this.#products) {
             let thumb = productThumbTemplate.cloneNode(true);
             let productId = product.name.match(/\w*$/);
@@ -58,13 +59,61 @@ class ShopList extends HTMLElement {
             this.appendChild(thumb);
         }
     }
-    
+
     async getProductData() {
-        let data = await fetch("https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/Products");
-        data = await data.json();
-        return data.documents;
+
+        let loadDataFromQuery = async (query) => {
+            let loadedPromise = new Promise((resolve, reject) => {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (this.readyState != 4) return;
+        
+                    if (this.status == 200) {
+                        console.log(this.status);
+                        resolve(xhr.response);
+                    } else {
+                        reject(xhr.response);
+                    }
+                };
+
+                xhr.open("POST", `https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents:runQuery`, true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(query);
+            });
+            return loadedPromise;
+        }
+
+
+       let data = await loadDataFromQuery(JSON.stringify(
+            {
+                structuredQuery:
+                {
+                    from: [
+                        {
+                            collectionId: 'Products',
+                            allDescendants: true
+                        }
+                    ],
+                    limit: 25,
+                    offset: this.#startIndex
+                }
+            }
+        ));
+
+        data = JSON.parse(data);
+        let products = [];
+        for (let item of data) {
+            if (item.document) products.push(item.document);
+        }
+
+        console.log(products);
+        return products;
+
+//        let data = await fetch("https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/Products");
+//        data = await data.json();
+//        return data.documents;
     }
-    
+
 }
 
 
