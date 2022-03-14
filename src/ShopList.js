@@ -2,7 +2,7 @@ class ShopList extends HTMLElement {
     #products = null;
     #productCount = -1;
     #startIndex = 0;
-    #productsPerPage = 10;
+    #productsPerPage = 3;
     #pageButtonsHtml = `
     <span></span>
     `;
@@ -142,7 +142,7 @@ class ShopList extends HTMLElement {
 
     renderPageButtons() {
         let pageChanged = () => {
-            if (this.#startIndex >= this.#productCount - this.#productsPerPage) this.#startIndex = this.#productCount - this.#productsPerPage;
+            if (this.#startIndex >= this.#productCount - this.#productsPerPage - 1) this.#startIndex = this.#productCount - this.#productsPerPage - 1;
             if (this.#startIndex < 0) this.#startIndex = 0;
 
             let params = new URLSearchParams(window.location.hash.substring(1));
