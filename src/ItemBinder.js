@@ -1,4 +1,4 @@
-class CreateItemBinder {
+class ItemBinder {
     static bindForRead(rootElement) {
         let elementToBind = rootElement;
         let boundElements = elementToBind.querySelectorAll("[boundField]");
@@ -6,17 +6,21 @@ class CreateItemBinder {
             let fieldPath = boundElement.getAttribute("boundField");
             if (fieldPath.endsWith(".values") || fieldPath.endsWith(".fields")) {
                 let fieldAddButtonId = boundElement.getAttribute("fieldAddButton");
-                let fieldAddButton = elementToBind.querySelector(`#${fieldAddButtonId}`);
-                let fieldTemplateId = boundElement.getAttribute("fieldTemplate");
-                let childTemplate = elementToBind.querySelector(`#${fieldTemplateId}`).content.firstElementChild;
-                let childList = [];
-                fieldAddButton.addEventListener("click", () => {
-                    let newChildItem = childTemplate.cloneNode(true);
-                    newChildItem.setAttribute("boundArrayIndex", childList.length);
-                    boundElement.appendChild(newChildItem);
-                    let childBinder = new CreateItemBinder(newChildItem);
-                    childList.push(newChildItem);
-                });
+                if (boundElement.hasAttribute("fieldAddButton")) {
+                    let fieldTemplateId = boundElement.getAttribute("fieldTemplate");
+                    let childTemplate = document.querySelector(`#${fieldTemplateId}`).content.firstElementChild;
+                    let fieldAddButton = boundElement.parentElement.querySelector(`#${fieldAddButtonId}`);
+                    let childList = [];
+                    fieldAddButton.addEventListener("click", () => {
+                        let newChildItem = childTemplate.cloneNode(true);
+                        newChildItem.setAttribute("boundArrayIndex", childList.length);
+                        boundElement.appendChild(newChildItem);
+                        this.bindForRead(newChildItem);
+                        let childBinder = new ItemBinder(newChildItem);
+                        childList.push(newChildItem);
+                    });
+    
+                }
             }
         }   
     }
@@ -60,6 +64,7 @@ class CreateItemBinder {
                         let childElement = childTemplate.cloneNode(true);
                         childElement.setAttribute("boundArrayIndex", arrayIndex);
                         boundElement.appendChild(childElement);
+                        this.bindForRead(childElement);
                         this.bindItemToElement(itemToBind, childElement, productId);
                         if (boundElement.getAttribute("arrayRenderType") === "first") break;
                     }
@@ -153,4 +158,4 @@ class CreateItemBinder {
     }
 }
 
-export default CreateItemBinder;
+export default ItemBinder;

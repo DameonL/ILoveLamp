@@ -82,10 +82,11 @@ class ProductView extends HTMLElement {
     }
 
     #changeSelectedVariant(newIndex) {
-        document.querySelector("#selectedVariantPrice").innerText = this.#selectedVariant.mapValue.fields.Price.doubleValue;
 
         this.#selectedVariantIndex = newIndex;
         this.#renderVariants();
+        document.querySelector("#selectedVariantPrice").innerText = this.#selectedVariant.mapValue.fields.Price.doubleValue;
+
         this.#formatPrices();
     }
 
@@ -95,6 +96,7 @@ class ProductView extends HTMLElement {
             let variant = variants[variantIndex];
             if (!variant.querySelector) continue;
 
+            console.log(variant);
             let variantImage = variant.querySelector(`img[boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values.stringValue"]`);
             let variantName = variant.querySelector(`div[boundField="Variants.arrayValue.values.mapValue.fields.Name.stringValue"]`).innerText;
             if (variantIndex == this.#selectedVariantIndex) {

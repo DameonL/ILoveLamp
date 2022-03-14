@@ -2,16 +2,28 @@ shop-list {
     display: flex;
     margin-left: 1vw;
     margin-right: 1vw;
+    height: fit-content;
+    flex-wrap: wrap;
 }
 
 .shopProductThumb {
     width: 15vw;
+    height: auto;
     margin: 10px 10px 10px 10px;
 }
 
-.shopProductThumb > [boundField="image"]{
-    width: 100%;
-    height: auto;
+.shopProductThumbImage {
+    width: 15vw;
+    height: 15vw;
+    display: flex;
+    align-items: center;
+}
+
+.shopProductThumbImage > img {
+    height: 100%;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .shopProductThumb > [boundField="name"] {
@@ -35,4 +47,9 @@ shop-list {
 .shopListPriceCents {
     font-size: 14px;
     margin-bottom: auto;
+    width: 100%;
+}
+
+#shopListPages {
+    text-align: center;
 }

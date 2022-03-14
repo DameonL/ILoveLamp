@@ -87,7 +87,7 @@ let bindingElement = document.querySelector(`[fieldType="document"]`);
 ItemBinder.bindForRead(bindingElement);
 
 document.querySelector("#createButton").addEventListener("click", () => {
-    let serializedItem = itemBinder.getItemFromElement(bindingElement);
+    let serializedItem = ItemBinder.getItemFromElement(bindingElement);
     let postItem = {};
     postItem.fields = serializedItem;
     console.log(serializedItem);
