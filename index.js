@@ -14,7 +14,8 @@ window.addEventListener("hashchange", hashChanged);
 window.addEventListener("popstate", hashChanged);
 let pageIds = {
     "" : "pages/index.html",
-    "Shop" : "pages/ShopList.html"
+    "Shop" : "pages/ShopList.html",
+    "About" : "pages/About.html"
 }
 
 function hashChanged() {

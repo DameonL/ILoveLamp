@@ -3,13 +3,15 @@
     <link rel="stylesheet" href="styles/ShopList.css">
     <shop-list></shop-list>
     <product-view></product-view>
-    <div id="shopListPages">
-        <span id="shopListPagesFirst" class="button">&lt;&lt;</span>
-        <span id="shopListPagesPrevious" class="button">&lt;</span>
-        <span id="shopListPagesPageInfo"></span>
-        <span id="shopListPagesNext" class="button">&gt;</span>
-        <span id="shopListPagesLast" class="button">&gt;&gt;</span>
-    </div>
+    <template id="shopListPagesTemplate">
+        <div id="shopListPages">
+            <span id="shopListPagesFirst" class="button">&lt;&lt;</span>
+            <span id="shopListPagesPrevious" class="button">&lt;</span>
+            <span id="shopListPagesPageInfo"></span>
+            <span id="shopListPagesNext" class="button">&gt;</span>
+            <span id="shopListPagesLast" class="button">&gt;&gt;</span>
+        </div>
+    </template>
     <template id="productThumb">
         <div class="shopProductThumb">
             <div class="shopProductThumbImage"><img boundField="image" style="cursor:pointer"></div>

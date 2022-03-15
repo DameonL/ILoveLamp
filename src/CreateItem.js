@@ -90,7 +90,25 @@ document.querySelector("#createButton").addEventListener("click", () => {
     let serializedItem = ItemBinder.getItemFromElement(bindingElement);
     let postItem = {};
     postItem.fields = serializedItem;
-    console.log(serializedItem);
+
+    let updateProductCount = async () => {
+        let productCount = await fetch("https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/ProductsSettings/Settings");
+        productCount = await productCount.json();
+        productCount = Number(productCount.fields.ProductCount.integerValue);
+    
+        request = new XMLHttpRequest();
+        var url = "https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/ProductsSettings/Settings?updateMask.fieldPaths=ProductCount";
+        request.open("PATCH", url, true);
+        request.setRequestHeader("Content-Type", "application/json");
+        request.onreadystatechange = function () {
+            if (request.readyState === 4 && request.status === 200) {
+                location.reload();
+            } else if (request.readyState === 4) {
+                console.log(request.response);
+            }
+        };
+        request.send(JSON.stringify({fields:{ ProductCount: { integerValue: productCount + 1 } } }));
+    }
 
     var request = new XMLHttpRequest();
     var url = "https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/Products";
@@ -98,7 +116,7 @@ document.querySelector("#createButton").addEventListener("click", () => {
     request.setRequestHeader("Content-Type", "application/json");
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
-            location.reload();
+            updateProductCount();
         }
     };
     request.send(JSON.stringify(postItem));

@@ -2,10 +2,7 @@ class ShopList extends HTMLElement {
     #products = null;
     #productCount = -1;
     #startIndex = 0;
-    #productsPerPage = 3;
-    #pageButtonsHtml = `
-    <span></span>
-    `;
+    #productsPerPage = 12;
 
     constructor() {
         super();
@@ -59,6 +56,7 @@ class ShopList extends HTMLElement {
                 priceCents = price.substring(price.indexOf(".") + 1);
             }
 
+            thumb.id = productId;
             thumb.querySelector(`[boundField="priceDollars"]`).innerText = priceDollars;
             thumb.querySelector(`[boundField="priceCents"]`).innerText = priceCents;
             thumb.querySelector(`[boundField="image"]`).addEventListener("click", () => {
@@ -71,6 +69,17 @@ class ShopList extends HTMLElement {
     }
 
     async getProductData() {
+        let productCount = await fetch("https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/ProductsSettings/Settings");
+        productCount = await productCount.json();
+        productCount = Number(productCount.fields.ProductCount.integerValue);
+        this.#productCount = productCount;
+
+        let totalPages = Math.ceil(this.#productCount / this.#productsPerPage);
+        if (this.#startIndex > ((totalPages - 1) * this.#productsPerPage)) {
+            this.#startIndex = ((totalPages - 1) * this.#productsPerPage);
+        }
+        if (this.#startIndex < 0) this.#startIndex = 0;
+
         let loadDataFromQuery = async (query) => {
             let loadedPromise = new Promise((resolve, reject) => {
                 const request = new XMLHttpRequest();
@@ -123,10 +132,6 @@ class ShopList extends HTMLElement {
             }
         ));
 
-        let productCount = await fetch("https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/Products/1");
-        productCount = await productCount.json();
-        productCount = productCount.fields.ProductCount.integerValue;
-        this.#productCount = productCount;
         data = JSON.parse(data);
         let products = [];
         for (let item of data) {
@@ -134,26 +139,21 @@ class ShopList extends HTMLElement {
         }
 
         return products;
-
-        //        let data = await fetch("https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/Products");
-        //        data = await data.json();
-        //        return data.documents;
     }
 
     #renderPageButtons() {
         let pageChanged = () => {
-            if (this.#startIndex >= this.#productCount - this.#productsPerPage) this.#startIndex = this.#productCount - this.#productsPerPage;
-            if (this.#startIndex < 0) this.#startIndex = 0;
-
             let params = new URLSearchParams(window.location.hash.substring(1));
             params.set("startIndex", this.#startIndex);
             window.location.hash = params.toString();
         }
 
-        let totalPages = Math.round(this.#productCount / this.#productsPerPage);
-        let currentPage = Math.round((this.#startIndex / this.#productCount) * totalPages) + 1;
+        let totalPages = Math.ceil(this.#productCount / this.#productsPerPage);
+        let currentPage = Math.floor((this.#startIndex / this.#productCount) * totalPages);
 
-        let pageButtonDiv = document.querySelector("#shopListPages");
+        let pageButtonTemplate = document.querySelector("#shopListPagesTemplate");
+        let pageButtonDiv = pageButtonTemplate.content.firstElementChild.cloneNode(true);
+        this.after(pageButtonDiv);
         let shopListPagesFirst = pageButtonDiv.querySelector("#shopListPagesFirst");
         shopListPagesFirst.addEventListener("click", () => {
             this.#startIndex = 0;
@@ -161,23 +161,26 @@ class ShopList extends HTMLElement {
         });
         let shopListPagesPrevious = pageButtonDiv.querySelector("#shopListPagesPrevious");
         shopListPagesPrevious.addEventListener("click", () => {
-            this.#startIndex -= this.#productsPerPage;
-            if (this.#startIndex < 0) this.#startIndex = 0;
-            pageChanged();
+            if (currentPage > 0) {
+                this.#startIndex = (currentPage - 1) * this.#productsPerPage;
+                pageChanged();
+            }
         });
         let shopListPagesNext = pageButtonDiv.querySelector("#shopListPagesNext");
         shopListPagesNext.addEventListener("click", () => {
-            this.#startIndex += this.#productsPerPage;
-            pageChanged();
+            if (currentPage + 1 < totalPages) {
+                this.#startIndex = (currentPage + 1) * this.#productsPerPage;
+                pageChanged();
+            }
         });
         let shopListPagesLast = pageButtonDiv.querySelector("#shopListPagesLast");
         shopListPagesLast.addEventListener("click", () => {
-            this.#startIndex = this.#productCount - this.#productsPerPage;
+            this.#startIndex = (totalPages - 1) * this.#productsPerPage;
             pageChanged();
         });
 
         let shopListPagesPageInfo = pageButtonDiv.querySelector("#shopListPagesPageInfo");
-        shopListPagesPageInfo.innerText = `Page ${currentPage} of ${totalPages}`;
+        shopListPagesPageInfo.innerText = `Page ${currentPage + 1} of ${totalPages}`;
     }
 }
 

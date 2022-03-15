@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="../styles/ProductView.css">
 <div boundField="Name.stringValue"></div>
 <div class="productDetails">
+        <div boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values" fieldTemplate="productVariantImages" class="productImageList">
+        </div>
     <div class="productImage"><img id="mainProductImage"></div>
     <div style="flex: 5; display: flex; flex-direction: column;">
         <div id="selectedVariantName"></div>

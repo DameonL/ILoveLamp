@@ -2,6 +2,21 @@ body {
     margin: unset;
 }
 
+a {
+    text-decoration: unset;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0);
+    transition: all 250ms ease-in;
+    color:rgba(0, 96, 121, 1);
+}
+
+a:visited {
+    color:rgba(0, 96, 121, 1);
+}
+
+a:hover {
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.486);
+}
+
 .bodyBackground {
     background-image: url("../img/background.jpg");
     background-size: 100% auto;

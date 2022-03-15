@@ -1,6 +1,7 @@
 .navbarBackground {
     padding: 10px 10px 10px 10px;
     min-height: 3em;
+    height: 15vh;
     background: linear-gradient(rgb(225, 225, 255, 1), rgba(225, 225, 255, 1) 75%, rgb(225, 225, 255, 0));
     justify-content: space-evenly;
 

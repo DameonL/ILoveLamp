@@ -1,0 +1,59 @@
+#aboutPage {
+    width: 100%;
+}
+
+.aboutPageBackground {
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    height: 80vh;
+    position: relative;
+    top: -10vh;
+    padding-top: 10vh;
+    background-color: #e1c9ff;
+    background-blend-mode: hard-light;
+}
+
+#aboutPageHeader {
+    background-image: url("/img/about/robert-wiedemann-d9yOg5zP-oQ-unsplash.jpg");
+    z-index: -1;
+}
+
+#aboutPageHeader > div {
+    margin-left: 15%;
+    margin-right: auto;
+    width: fit-content;
+    text-align: center;
+    font-size: 3em;
+}
+
+.aboutTextBox {
+    width: fit-content;
+    border-radius: 15px;
+    font-size: 2em;
+    padding: 1em 1em 1em 1em;
+    background-color: rgba(134, 167, 252, 0.55);
+}
+
+#aboutBox1 {
+    background-image: url("/img/about/etienne-girardet-NGb91VwnOWY-unsplash.jpg");
+}
+
+#aboutBox1Text1 {
+    position: relative;
+    margin-left: 15%;
+    margin-right: auto;
+}
+
+#aboutBox1Text2 {
+    position: relative;
+    top: 5vh;
+    margin-left: 30%;
+    margin-right: auto;
+}
+
+#aboutBox1Text3 {
+    position: relative;
+    top: 10vh;
+    margin-left: 45%;
+    margin-right: auto;
+}

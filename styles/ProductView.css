@@ -76,3 +76,7 @@ product-view > .productDetails > .rightMenu {
 #selectedVariantName {
     font-weight: bold;
 }
+
+[boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values"] {
+    padding: 5px 5px 5px 5px;
+}
