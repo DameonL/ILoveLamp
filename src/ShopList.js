@@ -31,11 +31,11 @@ class ShopList extends HTMLElement {
     async loadShopPage() {
         let productThumbTemplate = document.querySelector("#productThumb").content.firstElementChild;
         this.#products = await this.getProductData();
-        this.renderProductData(productThumbTemplate);
-        this.renderPageButtons();
+        this.#renderProductData(productThumbTemplate);
+        this.#renderPageButtons();
     }
 
-    renderProductData(productThumbTemplate) {
+    #renderProductData(productThumbTemplate) {
         this.innerHTML = "";
         for (let product of this.#products) {
             let thumb = productThumbTemplate.cloneNode(true);
@@ -73,22 +73,22 @@ class ShopList extends HTMLElement {
     async getProductData() {
         let loadDataFromQuery = async (query) => {
             let loadedPromise = new Promise((resolve, reject) => {
-                var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function () {
+                const request = new XMLHttpRequest();
+                request.onreadystatechange = function () {
                     if (this.readyState != 4) return;
 
                     if (this.status == 200) {
-                        resolve(xhr.response);
+                        resolve(request.response);
                     } else {
-                        console.error(xhr.response);
+                        console.error(request.response);
                         console.trace();
-                        reject(xhr.response);
+                        reject(request.response);
                     }
                 };
 
-                xhr.open("POST", `https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents:runQuery`, true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.send(query);
+                request.open("POST", `https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents:runQuery`, true);
+                request.setRequestHeader('Content-Type', 'application/json');
+                request.send(query);
             });
             return loadedPromise;
         }
@@ -135,12 +135,12 @@ class ShopList extends HTMLElement {
 
         return products;
 
-        //        let data = await fetch("https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/Products/1");
+        //        let data = await fetch("https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/Products");
         //        data = await data.json();
         //        return data.documents;
     }
 
-    renderPageButtons() {
+    #renderPageButtons() {
         let pageChanged = () => {
             if (this.#startIndex >= this.#productCount - this.#productsPerPage) this.#startIndex = this.#productCount - this.#productsPerPage;
             if (this.#startIndex < 0) this.#startIndex = 0;
