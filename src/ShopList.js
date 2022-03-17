@@ -3,13 +3,13 @@ class ShopList extends HTMLElement {
     #productCount = -1;
     #startIndex = 0;
     #productsPerPage = 12;
+    #shopListProductRender = null;
 
     constructor() {
         super();
 
-        window.addEventListener("hashchange", this.#hashChanged);
         this.#hashChanged();
-        this.loadShopPage();
+        this.#loadShopPage();
     }
 
     #hashChanged = () => {
@@ -25,15 +25,21 @@ class ShopList extends HTMLElement {
 
     }
 
-    async loadShopPage() {
-        let productThumbTemplate = document.querySelector("#productThumb").content.firstElementChild;
-        this.#products = await this.getProductData();
+    async #loadShopPage() {
+        let pageHtml = await fetch("./pages/ShopList.html");
+        pageHtml = await pageHtml.text();
+        this.innerHTML = pageHtml;
+
+        this.#shopListProductRender = this.querySelector("#shopListProductRender");
+
+        let productThumbTemplate = this.querySelector("#productThumb").content.firstElementChild;
+        this.#products = await this.#getProductData();
         this.#renderProductData(productThumbTemplate);
         this.#renderPageButtons();
     }
 
     #renderProductData(productThumbTemplate) {
-        this.innerHTML = "";
+        this.#shopListProductRender.innerHTML = "";
         for (let product of this.#products) {
             let thumb = productThumbTemplate.cloneNode(true);
             let productId = product.name.match(/\w*$/);
@@ -60,15 +66,16 @@ class ShopList extends HTMLElement {
             thumb.querySelector(`[boundField="priceDollars"]`).innerText = priceDollars;
             thumb.querySelector(`[boundField="priceCents"]`).innerText = priceCents;
             thumb.addEventListener("click", () => {
-                let params = new URLSearchParams(window.location.hash.substring(1));
+                let params = new URLSearchParams(window.location.hash.replaceAll("#", ""));
+                params.set("page", "Product");
                 params.append("product", productId);
                 window.location.hash = params.toString();
             });
-            this.appendChild(thumb);
+            this.#shopListProductRender.appendChild(thumb);
         }
     }
 
-    async getProductData() {
+    async #getProductData() {
         let productCount = await fetch("https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/ProductsSettings/Settings");
         productCount = await productCount.json();
         productCount = Number(productCount.fields.ProductCount.integerValue);
@@ -151,7 +158,7 @@ class ShopList extends HTMLElement {
         let totalPages = Math.ceil(this.#productCount / this.#productsPerPage);
         let currentPage = Math.floor((this.#startIndex / this.#productCount) * totalPages);
 
-        let pageButtonTemplate = document.querySelector("#shopListPagesTemplate");
+        let pageButtonTemplate = this.querySelector("#shopListPagesTemplate");
         let pageButtonDiv = pageButtonTemplate.content.firstElementChild.cloneNode(true);
         this.after(pageButtonDiv);
         let shopListPagesFirst = pageButtonDiv.querySelector("#shopListPagesFirst");

@@ -30,7 +30,7 @@
 }
 
 #aboutPageHeader > div {
-    padding-top: 10vh;
+    margin-top: 10vh;
     margin-left: 15%;
     margin-right: auto;
     width: fit-content;
@@ -64,7 +64,7 @@
 }
 
 .aboutTextBoxFadeIn {
-    opacity: 1;
+    opacity: 1 !important;
     margin-top: unset;
     background-color: rgba(134, 167, 252, 0.85);
     color: rgba(0, 0, 0, 1);

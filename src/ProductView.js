@@ -15,18 +15,12 @@ class ProductView extends HTMLElement {
     }
 
     #hashChanged = () => {
-        if (this.getRootNode().nodeName != "#document") {
-            window.removeEventListener("hashchange", this.#hashChanged);
-            return;
-        }
-
-        let params = new URLSearchParams(window.location.hash.substring(1));
+        let params = new URLSearchParams(window.location.hash.replace("#", ""));
         if (params.has("product")) {
             this.#productId = params.get("product");
             this.render();
-            this.style.display = "";
         } else {
-            this.style.display = "none";
+            window.location.hash = "";
         }
     }
 

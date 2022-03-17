@@ -1,6 +1,7 @@
 #showCartLink {
     cursor: pointer;
     text-align: right;
+    align-self: flex-end;
 }
 
 #shoppingCartBackground {

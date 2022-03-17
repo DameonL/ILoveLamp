@@ -2,10 +2,12 @@ import ILoveLampNavbar from "./src/ILoveLampNavbar.js";
 import ShopList from "./src/ShopList.js";
 import ProductView from "./src/ProductView.js";
 import ShoppingCart from "./src/ShoppingCart.js";
+import AboutPage from "./src/AboutPage.js";
 customElements.define('shop-list', ShopList,);
 customElements.define('product-view', ProductView);
 customElements.define('shopping-cart', ShoppingCart);
 customElements.define('ilovelamp-navbar', ILoveLampNavbar);
+customElements.define('about-page', AboutPage);
 
 let pageRenderer = document.querySelector("#pageRenderer");
 let shopName = document.head.querySelector("title").innerText;
@@ -13,13 +15,22 @@ let shopName = document.head.querySelector("title").innerText;
 window.addEventListener("hashchange", hashChanged);
 window.addEventListener("popstate", hashChanged);
 let pageIds = {
-    "": "pages/index.html",
+    "": "pages/ShopList.html",
     "Shop": "pages/ShopList.html",
     "About": "pages/About.html"
 }
 
+let pageRoutes = {
+    "": "shop-list",
+    "Shop": "shop-list",
+    "About": "about-page",
+    "Product": "product-view"
+}
+
 function hashChanged() {
-    let params = new URLSearchParams(window.location.hash.substring(1));
+    let params = window.location.hash.replaceAll("#", "");
+    params = new URLSearchParams(params);
+    
     let pageId = "";
     if (params.has("page")) {
         pageId = params.get("page");
@@ -27,11 +38,17 @@ function hashChanged() {
     loadPage(pageId);
 }
 
+let url = "";
 let loadPage = async (pageId = "") => {
-    let url = "";
-    if (!(pageId in pageIds)) {
+    pageRenderer.innerHTML = "";
+    let instance = document.createElement(pageRoutes[pageId]);
+    pageRenderer.appendChild(instance);
+
+/*    if (!(pageId in pageIds)) {
         url = "pages/404.html";
     } else {
+        if (url == pageIds[pageId]) return;
+
         url = pageIds[pageId];
     }
 
@@ -46,7 +63,6 @@ let loadPage = async (pageId = "") => {
         });
     }
 
-    let navbarTarget = document.createElement("div");
     let pageHtml = await fetch(url);
     pageHtml = await pageHtml.text();
     setInnerHTML(pageRenderer, pageHtml);
@@ -54,7 +70,7 @@ let loadPage = async (pageId = "") => {
         document.title = `${shopName} - ${pageRenderer.querySelector("title").innerText}`;
     } else {
         document.title = shopName;
-    }
+    } */
 }
 
 hashChanged();
