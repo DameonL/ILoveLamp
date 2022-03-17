@@ -59,7 +59,7 @@ class ShopList extends HTMLElement {
             thumb.id = productId;
             thumb.querySelector(`[boundField="priceDollars"]`).innerText = priceDollars;
             thumb.querySelector(`[boundField="priceCents"]`).innerText = priceCents;
-            thumb.querySelector(`[boundField="image"]`).addEventListener("click", () => {
+            thumb.addEventListener("click", () => {
                 let params = new URLSearchParams(window.location.hash.substring(1));
                 params.append("product", productId);
                 window.location.hash = params.toString();

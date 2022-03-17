@@ -15,6 +15,7 @@
     .navbarLink {
         transition: all 500ms ease-out;
         border-radius: 5px;
+        font-size: 32px;
         width: 100%;
         padding: 2px 5px 2px 5px;
     }
@@ -32,7 +33,7 @@
     .navbarHamburger:hover + .navbarLinks, .navbarHamburger:focus + .navbarLinks, .navbarLinks:hover {
         display: flex;
         flex-direction: column;
-        background-color: rgb(154, 204, 250, 0.5);
+        background-color: rgb(154, 204, 250, 0.95);
         width: fit-content;
         padding: 10px 10px 10px 10px;
         box-shadow: 0px 0px 3px 3px rgb(59, 78, 255, 0.5);
@@ -62,11 +63,8 @@
 }
 
 .navbarLinks {
+    position:absolute;
     transition: all 5000ms ease-out;
-}
-
-.navbarLink {
-    z-index: inherit;
 }
 
 .navbarBackground {
@@ -76,6 +74,7 @@
     background: linear-gradient(rgb(225, 225, 255, 1), rgba(225, 225, 255, 1) 75%, rgb(225, 225, 255, 0));
     justify-content: space-evenly;
     transition: all 500ms ease-out;
+    z-index: 10000;
 }
 
 .navbarLogo {

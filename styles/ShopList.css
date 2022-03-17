@@ -4,7 +4,6 @@ shop-list {
     margin-right: 1vw;
     height: fit-content;
     flex-wrap: wrap;
-    z-index: -1;
 }
 
 .shopProductThumb {
@@ -18,7 +17,6 @@ shop-list {
     height: 15vw;
     display: flex;
     align-items: center;
-    z-index: inherit;
 }
 
 .shopProductThumbImage > img {

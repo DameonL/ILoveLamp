@@ -1,6 +1,6 @@
 @media screen and (max-width: 1000px){
     .aboutPageBackground {
-        background-size: auto 110vh !important;
+        background-size: auto 100% !important;
     }    
 }
 
@@ -15,19 +15,18 @@
 .aboutPageBackground {
     background-size: 100% auto;
     background-repeat: no-repeat;
-    height: 80vh;
     background-color: #e1c9ff;
     background-blend-mode: hard-light;
     overflow: hidden;
+    min-height: 80vh;
 }
 
 #aboutPageHeader {
-    position: relative;
     background-image: url("../img/about/robert-wiedemann-d9yOg5zP-oQ-unsplash.jpg");
 }
 
 #aboutPageHeader > div {
-    top: 15vh;
+    padding-top: 10vh;
     margin-left: 15%;
     margin-right: auto;
     width: fit-content;
@@ -42,60 +41,37 @@
     border-radius: 15px;
     font-size: 2em;
     padding: 1em 1em 1em 1em;
+    margin-bottom: 1vh;
+    margin-left: 2em;
     background-color: rgba(134, 167, 252, 0);
     opacity: 0;
     transition: background-color 6000ms ease-out;
     transition: opacity 2000ms ease-out;
-    z-index: 0;
     overflow: hidden;
 }
 
 #aboutBox1 {
+    display: flex;
+    flex-direction: column;
     background-image: url("../img/about/etienne-girardet-NGb91VwnOWY-unsplash.jpg");
 }
 
 #aboutBox2 {
     background-image: url("../img/about/pierre-chatel-innocenti-pxoZSTdAzeU-unsplash.jpg");
-    background-position-y: -15vh;
-    bottom: 30vh;
-}
-
-#aboutBox1Text1 {
-    top: 5vh;
-    margin-left: 15%;
-}
-
-#aboutBox1Text2 {
-    top: 10vh;
-    margin-left: 30%;
-}
-
-#aboutBox1Text3 {
-    top: 15vh;
-    margin-left: 45%;
-}
-
-#aboutBox2Text1 {
-    top: 5vh;
-    margin-left: 45%;
-}
-
-#aboutBox2Text2 {
-    top: 10vh;
-    margin-left: 30%;
-}
-
-#aboutBox2Text3 {
-    top: 15vh;
-    margin-left: 15%;
-}
-
-#aboutBox2Text4 {
-    margin-left: 65%;
 }
 
 .aboutTextBoxFadeIn {
     opacity: 1;
     margin-top: unset;
     background-color: rgba(134, 167, 252, 0.55);
+}
+
+.aboutBoxText2 {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.aboutBoxText3 {
+    align-self: flex-end;
+    margin-right: 3em;
 }
