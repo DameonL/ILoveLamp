@@ -5,7 +5,7 @@ class ILoveLampNavbar extends HTMLElement {
     }
 
     async #loadNavbar() {
-        let navbarHtml = await fetch("../pages/ILoveLampNavbar.html");
+        let navbarHtml = await fetch("./pages/ILoveLampNavbar.html");
         this.innerHTML = await navbarHtml.text();
     }
 }

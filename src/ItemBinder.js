@@ -102,7 +102,7 @@ class ItemBinder {
                     }
                 }
                 else if (boundElement.nodeName == "IMG") {
-                    boundElement.src = `../img/products/${productId}/${currentField}.jpg`;
+                    boundElement.src = `./img/products/${productId}/${currentField}.jpg`;
                 }
             }
         }

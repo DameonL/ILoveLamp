@@ -32,7 +32,7 @@ class ProductView extends HTMLElement {
 
     async loadPage() {
         window.addEventListener("hashchange", this.#hashChanged);
-        let pageHtml = await fetch("../pages/ProductView.html");
+        let pageHtml = await fetch("./pages/ProductView.html");
         this.innerHTML = await pageHtml.text();
 
         let quantitySelector = this.querySelector(`#quantitySelector`);

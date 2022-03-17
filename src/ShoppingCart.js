@@ -1,4 +1,4 @@
-import ItemBinder from "../src/ItemBinder.js";
+import ItemBinder from "./ItemBinder.js";
 
 class ShoppingCart extends HTMLElement {
     #cartData = [];
@@ -22,7 +22,7 @@ class ShoppingCart extends HTMLElement {
     }
 
     async #render() {
-        let pageHtml = await fetch("../pages/ShoppingCart.html");
+        let pageHtml = await fetch("./pages/ShoppingCart.html");
         this.innerHTML = await pageHtml.text();    
         if (document.cookie.includes("shoppingCart=")) {
             this.#cartData = this.#getCartFromCookie();

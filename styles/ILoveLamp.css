@@ -22,7 +22,7 @@ a:hover {
 }
 
 .bodyBackground {
-    background-image: url("../img/background.jpg");
+    background-image: url("./img/background.jpg");
     background-size: 100% auto;
     background-position: 0px 0px;
     background-attachment: fixed;

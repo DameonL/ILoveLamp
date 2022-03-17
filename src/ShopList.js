@@ -38,7 +38,7 @@ class ShopList extends HTMLElement {
             let thumb = productThumbTemplate.cloneNode(true);
             let productId = product.name.match(/\w*$/);
             thumb.querySelector(`[boundField="name"]`).innerText = product.fields.Name.stringValue;
-            thumb.querySelector(`[boundField="image"]`).src = `../img/products/${productId}/${product.fields.Variants.arrayValue.values[0].mapValue.fields.Images.arrayValue.values[0].stringValue}.jpg`;
+            thumb.querySelector(`[boundField="image"]`).src = `./img/products/${productId}/${product.fields.Variants.arrayValue.values[0].mapValue.fields.Images.arrayValue.values[0].stringValue}.jpg`;
 
             let price = "";
             if (product.fields.Variants.arrayValue.values[0].mapValue.fields.Price.doubleValue) {
