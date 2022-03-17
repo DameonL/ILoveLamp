@@ -23,7 +23,7 @@
 
 #aboutPageHeader {
     position: relative;
-    background-image: url("/img/about/robert-wiedemann-d9yOg5zP-oQ-unsplash.jpg");
+    background-image: url("../img/about/robert-wiedemann-d9yOg5zP-oQ-unsplash.jpg");
 }
 
 #aboutPageHeader > div {
@@ -51,11 +51,11 @@
 }
 
 #aboutBox1 {
-    background-image: url("/img/about/etienne-girardet-NGb91VwnOWY-unsplash.jpg");
+    background-image: url("../img/about/etienne-girardet-NGb91VwnOWY-unsplash.jpg");
 }
 
 #aboutBox2 {
-    background-image: url("/img/about/pierre-chatel-innocenti-pxoZSTdAzeU-unsplash.jpg");
+    background-image: url("../img/about/pierre-chatel-innocenti-pxoZSTdAzeU-unsplash.jpg");
     background-position-y: -15vh;
     bottom: 30vh;
 }
