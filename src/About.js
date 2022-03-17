@@ -1,10 +1,10 @@
 const options = {
     root: null,
-    threshold: 0.25, // 0 - 1 this work as a trigger. 
+    threshold: 0, // 0 - 1 this work as a trigger. 
     rootMargin: '0px'
 };
 
-const targets = document.querySelectorAll('.aboutTextBox');
+const targets = document.querySelectorAll('.aboutTextBox, .aboutPageBackground');
 const observer = new IntersectionObserver(
    entries => {
     entries.forEach(entry => {
