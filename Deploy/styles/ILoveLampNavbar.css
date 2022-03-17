@@ -1,0 +1,82 @@
+@media screen and (max-width: 1000px) {
+    .navbarHamburger {
+        display: block;
+        cursor: pointer;
+        width: 5vw;
+        font-size: 32px;
+        transition: color 500ms ease-out;
+    }
+
+    .navbarHamburger:hover, .navbarHamburger:hover {
+        text-decoration:underline;
+        color: rgb(146, 0, 243);
+    }
+
+    .navbarLink {
+        transition: all 500ms ease-out;
+        border-radius: 5px;
+        font-size: 32px;
+        width: 100%;
+        padding: 2px 5px 2px 5px;
+    }
+
+    .navbarLink:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbarLinks {
+        display: none;
+        border-radius: 5px;
+        background-color: rgb(154, 204, 250, 0);
+    }
+
+    .navbarHamburger:hover + .navbarLinks, .navbarHamburger:focus + .navbarLinks, .navbarLinks:hover {
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(154, 204, 250, 0.95);
+        width: fit-content;
+        padding: 10px 10px 10px 10px;
+        box-shadow: 0px 0px 3px 3px rgb(59, 78, 255, 0.5);
+    }
+
+}
+
+@media screen and (min-width: 1000px) {
+    .navbarHamburger {
+        display: none;
+    }
+    
+    .navbarLinks {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .navbarLink {
+        padding-left: 5%;
+    }
+    
+    #navbarShoppingCart {
+        margin-bottom: auto;
+        margin-left: auto;
+        min-width: 50px;
+    }
+}
+
+.navbarLinks {
+    position:absolute;
+    transition: all 5000ms ease-out;
+}
+
+.navbarBackground {
+    padding: 10px 10px 10px 10px;
+    min-height: 3em;
+    height: 15vh;
+    background: linear-gradient(rgb(225, 225, 255, 1), rgba(225, 225, 255, 1) 75%, rgb(225, 225, 255, 0));
+    justify-content: space-evenly;
+    transition: all 500ms ease-out;
+    z-index: 10000;
+}
+
+.navbarLogo {
+    font-size: 48px;
+}

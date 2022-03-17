@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/amiracle.css">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <shop-list></shop-list>
+    <script src="./src/fragments/navbar.js" async defer></script>
+    <script src="./src/CreateItem.js" type="module" async defer></script>
+    <div fieldType="document">
+        <div>Name:<input type="text" boundField="Name.stringValue"></div>
+        <div>
+            <div>Description:</div>
+            <textarea boundField="Description.stringValue" cols="80" rows="40"></textarea>
+        </div>
+        <div>
+            <div>Variants:</div>
+            <div boundField="Variants.arrayValue.values" fieldTemplate="productVariantTemplate" fieldAddButton="variantAddButton"></div>
+            <div id="variantAddButton"><button>Add Variant</button></div>
+        </div>
+
+        <template id="productVariantTemplate">
+            <div>
+                <div>
+                    <div>
+                        Name:
+                        <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Name.stringValue">
+                    </div>
+                    <div>
+                        Price:
+                        <input type="number" boundField="Variants.arrayValue.values.mapValue.fields.Price.doubleValue">
+                    </div>
+                    <div>
+                        Images:
+                        <div boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values" fieldTemplate="productVariantImageTemplate" fieldAddButton="variantImageAddButton"></div>
+                        <div id="variantImageAddButton"><button>Add Image</button></div>
+                    </div>
+                    <div>
+                        Properties:
+                        <div>
+                            Color:
+                            <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields.Color.stringValue">
+                        </div>
+                        <div>
+                            Style:
+                            <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields.Style.stringValue">
+                        </div>
+                        <div>
+                            Material:
+                            <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields.Material.stringValue">
+                        </div>
+                        <div>
+                            Brand:
+                            <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields.Brand.stringValue">
+                        </div>
+                        <div>
+                            Special Feature:
+                            <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields.Special Feature.stringValue">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+    
+                <template id="productVariantImageTemplate">
+                    <div>
+                        <input type="text" boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values.stringValue">
+                    </div>
+                </template>
+            </div>
+        </template>
+    </div>
+    <button id="createButton">Create</button>
+
+
+</body>
+
+</html>
