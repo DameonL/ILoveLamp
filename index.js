@@ -14,11 +14,6 @@ let shopName = document.head.querySelector("title").innerText;
 
 window.addEventListener("hashchange", hashChanged);
 window.addEventListener("popstate", hashChanged);
-let pageIds = {
-    "": "pages/ShopList.html",
-    "Shop": "pages/ShopList.html",
-    "About": "pages/About.html"
-}
 
 let pageRoutes = {
     "": "shop-list",
@@ -29,10 +24,11 @@ let pageRoutes = {
 
 function hashChanged() {
     let params = window.location.hash.replaceAll("#", "");
+    console.log(params);
     params = new URLSearchParams(params);
-    
     let pageId = "";
     if (params.has("page")) {
+        console.log("Page");
         pageId = params.get("page");
     }
     loadPage(pageId);
@@ -44,33 +40,12 @@ let loadPage = async (pageId = "") => {
     let instance = document.createElement(pageRoutes[pageId]);
     pageRenderer.appendChild(instance);
 
-/*    if (!(pageId in pageIds)) {
-        url = "pages/404.html";
-    } else {
-        if (url == pageIds[pageId]) return;
 
-        url = pageIds[pageId];
-    }
-
-    var setInnerHTML = function (elm, html) {
-        elm.innerHTML = html;
-        Array.from(elm.querySelectorAll("script")).forEach(oldScript => {
-            const newScript = document.createElement("script");
-            Array.from(oldScript.attributes)
-                .forEach(attr => newScript.setAttribute(attr.name, attr.value));
-            newScript.appendChild(document.createTextNode(oldScript.innerHTML));
-            oldScript.parentNode.replaceChild(newScript, oldScript);
-        });
-    }
-
-    let pageHtml = await fetch(url);
-    pageHtml = await pageHtml.text();
-    setInnerHTML(pageRenderer, pageHtml);
     if (pageRenderer.querySelector("title")) {
         document.title = `${shopName} - ${pageRenderer.querySelector("title").innerText}`;
     } else {
         document.title = shopName;
-    } */
+    }
 }
 
 hashChanged();

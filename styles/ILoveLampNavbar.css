@@ -8,7 +8,7 @@
     }
 
     .navbarHamburger:hover, .navbarHamburger:hover {
-        text-decoration:underline;
+        text-decoration: underline;
         color: rgb(146, 0, 243);
     }
 
@@ -65,7 +65,7 @@
 .navbarLinks {
     position:absolute;
     transition: all 5000ms ease-out;
-    width: 100%;
+    width: 90%;
 }
 
 .navbarBackground {
