@@ -1,4 +1,6 @@
-class ShopList extends HTMLElement {
+import FetchHtmlElement from "./FetchHtmlElement.js";
+
+class ShopList extends FetchHtmlElement {
     #products = null;
     #productCount = -1;
     #startIndex = 0;
@@ -8,34 +10,26 @@ class ShopList extends HTMLElement {
     constructor() {
         super();
 
-        this.#hashChanged();
-        this.#loadShopPage();
-    }
-
-    #hashChanged = () => {
-        let params = new URLSearchParams(window.location.hash.substring(1));
-        if (!params.has("product")) {
-            this.style.display = "";
-            if (params.has("startIndex")) {
-                this.#startIndex = Number(params.get("startIndex"));
-            }
-        } else {
-            this.style.display = "none";
+        this.onHtmlLoaded = () => {
+            this.#loadShopPage();
         }
-
     }
 
     async #loadShopPage() {
-        let pageHtml = await fetch("./pages/ShopList.html");
-        pageHtml = await pageHtml.text();
-        this.innerHTML = pageHtml;
+        this.#getStartIndex();
 
         this.#shopListProductRender = this.querySelector("#shopListProductRender");
-
         let productThumbTemplate = this.querySelector("#productThumb").content.firstElementChild;
         this.#products = await this.#getProductData();
         this.#renderProductData(productThumbTemplate);
         this.#renderPageButtons();
+    }
+
+    #getStartIndex = () => {
+        let params = new URLSearchParams(window.location.hash.replace("#"));
+        if (params.has("startIndex")) {
+            this.#startIndex = Number(params.get("startIndex"));
+        }
     }
 
     #renderProductData(productThumbTemplate) {
@@ -141,8 +135,12 @@ class ShopList extends HTMLElement {
 
         data = JSON.parse(data);
         let products = [];
+        let indexElement = document.querySelector("ilovelamp-index");
         for (let item of data) {
-            if (item.document) products.push(item.document);
+            if (item.document) {
+                products.push(item.document);
+                indexElement.addProductToCache(item.document)
+            }
         }
 
         return products;

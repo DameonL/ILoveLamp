@@ -1,17 +1,15 @@
-class AboutPage extends HTMLElement {
+import FetchHtmlElement from "./FetchHtmlElement.js";
+
+class AboutPage extends FetchHtmlElement {
     constructor() {
         super();
-
-        this.#loadPage();
+        this.onHtmlLoaded = this.#loadPage;
     }
 
     async #loadPage() {
-        let pageHtml = await fetch("./pages/AboutPage.html");
-        this.innerHTML = await pageHtml.text();
-
-        var options = {
+        var observerOptions = {
             root: null,
-            threshold: 0, // 0 - 1 this work as a trigger. 
+            threshold: 0,
             rootMargin: '0px'
         };
         
@@ -25,7 +23,7 @@ class AboutPage extends HTMLElement {
                     entry.target.classList.remove("aboutTextBoxFadeIn");
                 }
             });
-        }, options);
+        }, observerOptions);
         for (var textBox of targets.entries()) {
             observer.observe(textBox[1]);
         }        

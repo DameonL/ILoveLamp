@@ -1,3 +1,12 @@
+shop-list, about-page > div, product-view {
+    animation: fadeInChildPage 3s;
+}
+
+@keyframes fadeInChildPage {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 body {
     margin: unset;
 }

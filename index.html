@@ -21,7 +21,16 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         
-        <ilovelamp-navbar></ilovelamp-navbar>
+        <ilovelamp-navbar src="pages/ILoveLampNavbar.html"></ilovelamp-navbar>
+        <ilovelamp-index
+            pageRoutes='{
+                "": { "elementName": "shop-list", "src": "./pages/ShopList.html" },
+                "Shop": { "elementName": "shop-list", "src": "./pages/ShopList.html" },
+                "About": { "elementName": "about-page", "src": "./pages/AboutPage.html" },
+                "Product": { "elementName": "product-view", "src": "./pages/ProductView.html" }
+            }'
+            renderer='pageRenderer'
+        ></ilovelamp-index>
         <div id="pageRenderer"></div>
         <script src="index.js" type="module" async defer></script>
     </body>

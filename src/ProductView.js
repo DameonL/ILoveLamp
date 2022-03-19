@@ -1,33 +1,36 @@
+import FetchHtmlElement from "./FetchHtmlElement.js";
 import ItemBinder from "./ItemBinder.js";
 
-class ProductView extends HTMLElement {
+class ProductView extends FetchHtmlElement {
     #productId = "";
     #product = null;
     #selectedVariantIndex = 0;
-    get #selectedVariant() {
+
+    get selectedVariant() {
         return this.#product.fields.Variants.arrayValue.values[this.#selectedVariantIndex];
     }
 
     constructor() {
         super();
-        this.loadPage();
-        this.#hashChanged();
+
+        this.onHtmlLoaded = () => {
+            this.#loadPage();
+            this.#loadProductId();
+        }
     }
 
-    #hashChanged = () => {
+    #loadProductId() {
         let params = new URLSearchParams(window.location.hash.replace("#", ""));
         if (params.has("product")) {
             this.#productId = params.get("product");
-            this.render();
+            if (this.#productId === "") { window.history.back(); return; }
+            this.#render();
         } else {
             window.location.hash = "";
         }
     }
 
-    async loadPage() {
-        let pageHtml = await fetch("./pages/ProductView.html");
-        this.innerHTML = await pageHtml.text();
-
+    async #loadPage() {
         let quantitySelector = this.querySelector(`#quantitySelector`);
         for (var i = 1; i <= 50; i++) {
             let optionElement = document.createElement("option");
@@ -45,13 +48,15 @@ class ProductView extends HTMLElement {
         this.querySelector(".addToCartButton").addEventListener("click", addToCartFunction);
     }
 
-    async render() {
-        this.innerHTML = "";
-        let product = await this.getProductData(this.#productId);
+    async #render() {
+        let indexElement = document.querySelector("ilovelamp-index");
+        let product = await indexElement.getProduct(this.#productId);
+        if (product.error) { window.history.back(); return; }
         this.#product = product;
         ItemBinder.bindItemToElement(product.fields, this, this.#productId);
         this.#hookVariants();
         this.#changeSelectedVariant(this.#selectedVariantIndex);
+        this.updateTitle();
     }
 
     #hookVariants() {
@@ -77,12 +82,15 @@ class ProductView extends HTMLElement {
     #changeSelectedVariant(newIndex) {
         this.#selectedVariantIndex = newIndex;
         this.#renderVariants();
-        document.querySelector("#selectedVariantPrice").innerText = this.#selectedVariant.mapValue.fields.Price.doubleValue;
+        document.querySelector("#selectedVariantPrice").innerText = this.selectedVariant.mapValue.fields.Price.doubleValue;
         let mainImage = document.querySelector("#mainProductImage");
 
         let itemImages = document.querySelector(".productImageList").querySelectorAll("img");
         for (let itemImage of itemImages) {
             itemImage.addEventListener("mouseenter", () => {
+                mainImage.src = itemImage.src;
+            });
+            itemImage.addEventListener("click", () => {
                 mainImage.src = itemImage.src;
             });
         }
@@ -119,18 +127,12 @@ class ProductView extends HTMLElement {
             leftSpan.className = "productPriceLeft";
             rightSpan.className = "productPriceRight";
             leftSpan.innerText = splitText[0];
+            if (splitText[1].length == 1) splitText[1] = `${splitText[1]}0`;
             rightSpan.innerText = `.${splitText[1]}`;
             priceToFormat.innerText = "";
             priceToFormat.appendChild(leftSpan);
             priceToFormat.appendChild(rightSpan);
         }
-    }
-
-    async getProductData() {
-        let url = `https://firestore.googleapis.com/v1/projects/i-love-lamp-40190/databases/(default)/documents/Products/${this.#productId}`;
-        let data = await fetch(url);
-        data = await data.json();
-        return data;
     }
 }
 

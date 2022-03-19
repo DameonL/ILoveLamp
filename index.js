@@ -1,51 +1,20 @@
-import ILoveLampNavbar from "./src/ILoveLampNavbar.js";
+import ILoveLampIndex from "./src/ILoveLampIndex.js"
 import ShopList from "./src/ShopList.js";
 import ProductView from "./src/ProductView.js";
 import ShoppingCart from "./src/ShoppingCart.js";
 import AboutPage from "./src/AboutPage.js";
-customElements.define('shop-list', ShopList,);
-customElements.define('product-view', ProductView);
-customElements.define('shopping-cart', ShoppingCart);
-customElements.define('ilovelamp-navbar', ILoveLampNavbar);
-customElements.define('about-page', AboutPage);
+import FetchHtmlElement from "./src/FetchHtmlElement.js";
 
-let pageRenderer = document.querySelector("#pageRenderer");
-let shopName = document.head.querySelector("title").innerText;
+let elementRoutes = {
+    "shop-list": { elementClass: ShopList },
+    "about-page": { elementClass: AboutPage },
+    "product-view": { elementClass: ProductView },
+    "shopping-cart": { elementClass: ShoppingCart },
+    "ilovelamp-navbar": { elementClass: FetchHtmlElement },
+    "ilovelamp-index": { elementClass: ILoveLampIndex },
+};
 
-window.addEventListener("hashchange", hashChanged);
-window.addEventListener("popstate", hashChanged);
-
-let pageRoutes = {
-    "": "shop-list",
-    "Shop": "shop-list",
-    "About": "about-page",
-    "Product": "product-view"
+for (let routeIndex in elementRoutes) {
+    let route = elementRoutes[routeIndex];
+    customElements.define(routeIndex, route.elementClass);
 }
-
-function hashChanged() {
-    let params = window.location.hash.replaceAll("#", "");
-    console.log(params);
-    params = new URLSearchParams(params);
-    let pageId = "";
-    if (params.has("page")) {
-        console.log("Page");
-        pageId = params.get("page");
-    }
-    loadPage(pageId);
-}
-
-let url = "";
-let loadPage = async (pageId = "") => {
-    pageRenderer.innerHTML = "";
-    let instance = document.createElement(pageRoutes[pageId]);
-    pageRenderer.appendChild(instance);
-
-
-    if (pageRenderer.querySelector("title")) {
-        document.title = `${shopName} - ${pageRenderer.querySelector("title").innerText}`;
-    } else {
-        document.title = shopName;
-    }
-}
-
-hashChanged();

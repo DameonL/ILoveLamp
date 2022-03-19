@@ -10,6 +10,12 @@
     width: 15vw;
     height: auto;
     margin: 10px 10px 10px 10px;
+    animation: fadeInProductThumb 1500ms;
+}
+
+@keyframes fadeInProductThumb {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .shopProductThumbImage {

@@ -70,7 +70,7 @@ class ItemBinder {
                     }
                 }
             } else {
-                if ((boundElement.nodeName == "DIV") || (boundElement.nodeName == "SPAN")) {
+                if ((boundElement.nodeName == "DIV") || (boundElement.nodeName == "SPAN") || (boundElement.nodeName == "TITLE")) {
                     if (pathIndex == "fields") {
                         let templateId = boundElement.getAttribute("fieldtemplate");
                         if (templateId) {

@@ -49,9 +49,7 @@
     background-color: rgba(134, 167, 252, 0);
     color: rgba(0, 0, 0, 0);
     opacity: 0;
-    transition-property: opacity;
-    transition-delay: 1s;
-    transition-duration: 4s;
+    transition: opacity 4s ease 500ms;
     overflow: hidden;
 }
 
