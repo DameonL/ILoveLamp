@@ -1,5 +1,5 @@
-shop-list, about-page > div, product-view {
-    animation: fadeInChildPage 3s;
+* {
+    animation: fadeInChildPage 1s;
 }
 
 @keyframes fadeInChildPage {
