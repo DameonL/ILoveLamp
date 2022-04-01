@@ -56,7 +56,6 @@ class ProductView extends FetchHtmlElement {
         ItemBinder.bindItemToElement(product.fields, this, this.#productId);
         this.#hookVariants();
         this.#changeSelectedVariant(this.#selectedVariantIndex);
-        this.updateTitle();
     }
 
     #hookVariants() {
