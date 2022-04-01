@@ -3,7 +3,7 @@ import FetchHtmlElement from "./FetchHtmlElement.js";
 class AboutPage extends FetchHtmlElement {
     constructor() {
         super();
-        this.onHtmlLoaded = this.#loadPage;
+        this.addHtmlLoadedHandler(() => this.#loadPage());
     }
 
     async #loadPage() {

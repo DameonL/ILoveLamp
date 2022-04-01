@@ -10,9 +10,10 @@ class ShopList extends FetchHtmlElement {
     constructor() {
         super();
 
-        this.onHtmlLoaded = () => {
+        this.addHtmlLoadedHandler(() => {
+            
             this.#loadShopPage();
-        }
+        });
     }
 
     async #loadShopPage() {
@@ -26,7 +27,7 @@ class ShopList extends FetchHtmlElement {
     }
 
     #getStartIndex = () => {
-        let params = new URLSearchParams(window.location.hash.replace("#"));
+        let params = new URLSearchParams(window.location.hash.replace("#", ""));
         if (params.has("startIndex")) {
             this.#startIndex = Number(params.get("startIndex"));
         }
@@ -188,6 +189,5 @@ class ShopList extends FetchHtmlElement {
         shopListPagesPageInfo.innerText = `Page ${currentPage + 1} of ${totalPages}`;
     }
 }
-
 
 export default ShopList;

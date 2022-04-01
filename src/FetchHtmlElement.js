@@ -1,12 +1,8 @@
 class FetchHtmlElement extends HTMLElement {
     static get observedAttributes() { return ["src"]; }
 
-    #pageUrl = null;
+    #onHtmlLoadedHandlers = [];
     
-    #onHtmlLoaded = null;
-    get onHtmlLoaded() { return this.#onHtmlLoaded; }
-    set onHtmlLoaded(value) { this.#onHtmlLoaded = value; }
-
     constructor() {
         super();
 
@@ -15,24 +11,35 @@ class FetchHtmlElement extends HTMLElement {
         }
     }
 
-    attributeChangedCallback(attributeName, oldValue, newValue) {
-        if ((attributeName == "src") && (oldValue !== newValue)) {
-            if (newValue) {
-                this.#pageUrl = newValue;
-                this.reloadPage(newValue);
-            }
-        }
+    addHtmlLoadedHandler(handler) {
+        this.#onHtmlLoadedHandlers.push(handler);
+    }
+
+    removeHtmlLoadedHandler(handler) {
+        if (!this.#onHtmlLoadedHandlers.includes(handler)) return;
+
+        this.#onHtmlLoadedHandlers.splice(this.#onHtmlLoadedHandlers.indexOf(handler), 1);
     }
 
     async reloadPage(pageUrl) {
         this.innerHtml = "";
         let pageHtml = await fetch(pageUrl);
         this.innerHTML = await pageHtml.text();
-        this.updateTitle();
-        if (this.onHtmlLoaded) this.onHtmlLoaded();
+        this.#updateTitle();
+        for (let handler of this.#onHtmlLoadedHandlers) {
+            handler();
+        }
     }
 
-    updateTitle() {
+    attributeChangedCallback(attributeName, oldValue, newValue) {
+        if ((attributeName == "src") && (oldValue !== newValue)) {
+            if (newValue) {
+                this.reloadPage(newValue);
+            }
+        }
+    }
+
+    #updateTitle() {
         let pageTitle = this.querySelector("title");
         if (pageTitle && pageTitle.innerText) {
             document.title = `${document.title} - ${pageTitle.innerText}`;

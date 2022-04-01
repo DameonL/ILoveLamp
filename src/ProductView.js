@@ -13,10 +13,10 @@ class ProductView extends FetchHtmlElement {
     constructor() {
         super();
 
-        this.onHtmlLoaded = () => {
+        this.addHtmlLoadedHandler(() => {
             this.#loadPage();
             this.#loadProductId();
-        }
+        });
     }
 
     #loadProductId() {

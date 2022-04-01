@@ -9,7 +9,7 @@ class ShoppingCart extends FetchHtmlElement {
     constructor() {
         super();
 
-        this.onHtmlLoaded = () => { this.#render(); }
+        this.addHtmlLoadedHandler(() => { this.#render(); });
     }
 
     #toggleVisible = (event) => {

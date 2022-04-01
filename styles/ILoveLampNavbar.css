@@ -1,9 +1,9 @@
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1199px) {
     .navbarHamburger {
         display: block;
         cursor: pointer;
         width: 5vw;
-        font-size: 32px;
+        font-size: 3em;
         transition: color 500ms ease-out;
     }
 
@@ -15,7 +15,7 @@
     .navbarLink {
         transition: all 500ms ease-out;
         border-radius: 5px;
-        font-size: 32px;
+        font-size: 2.5em;
         width: 100%;
         padding: 2px 5px 2px 5px;
     }
@@ -41,7 +41,7 @@
 
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1200px) {
     .navbarHamburger {
         display: none;
     }
@@ -56,9 +56,11 @@
     }
     
     #navbarShoppingCart {
-        margin-bottom: auto;
+        position: relative;
         margin-left: auto;
-        min-width: 50px;
+        font-size: 2rem;
+        top: -3rem;
+        min-width: 3em;
     }
 }
 
@@ -79,5 +81,5 @@
 }
 
 .navbarLogo {
-    font-size: 48px;
+    font-size: 3rem;
 }
