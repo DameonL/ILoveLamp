@@ -1,6 +1,50 @@
-product-view > * {
-    margin-right: 10%;
-    margin-left: 10%;
+@media screen and (max-width: 1199px) {
+    .productDetails {
+        flex-direction: column;
+    }
+
+    #productImages {
+        flex-direction: column;
+    }
+
+    .productImageList {
+        flex-direction: row;
+    }
+
+    #productInformation {
+        flex-direction: column-reverse;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #productImages {
+        flex-direction: row;
+    }
+
+    #productImages > .productImage {
+        width: 30vw;
+    }
+
+    product-view > div{
+        margin: 0rem auto 0rem auto;
+        width: 90%;
+    }
+
+    .productImageList {
+        flex-direction: column;
+    }
+}
+
+#productInformation {
+    display: flex;
+}
+
+.productImageList {
+    display: flex;
+}
+
+#productImages {
+    display: flex;
 }
 
 product-view > [boundField="name"] {
@@ -10,7 +54,7 @@ product-view > [boundField="name"] {
 
 .productDetails {
     display: flex;
-    column-gap: 5px;
+    column-gap: .2rem;
 }
 
 .productImage {
@@ -28,7 +72,11 @@ product-view > .productDetails > .productImage > [boundField="Image"] {
 }
 
 product-view > .productDetails > [boundField="Description"] {
-    padding: 10px 10px 10px 10px;
+    padding: .1rem .1rem .1rem .1rem;
+}
+
+#quantitySelector {
+    width: 100%;
 }
 
 #selectedVariantPrice {
@@ -36,11 +84,11 @@ product-view > .productDetails > [boundField="Description"] {
 }
 
 .productPriceLeft {
-    font-size: 28px;
+    font-size: 2rem;
 }
 
 .productPriceLeft::before {
-    font-size: 22px;
+    font-size: 1.8rem;
     content: "$";
     vertical-align: top;
 }
@@ -65,11 +113,11 @@ product-view > .productDetails > .rightMenu {
 }
 
 .selectedVariant {
-    outline: 2px solid black;
+    outline: .1rem solid black;
 }
 
 .productVariant {
-    margin: 5px 5px 5px 5px;
+    margin: .2rem .2rem .2rem .2rem;
     cursor: pointer;
 }
 
@@ -78,5 +126,15 @@ product-view > .productDetails > .rightMenu {
 }
 
 [boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values"] {
-    padding: 5px 5px 5px 5px;
+    padding: .2rem .2rem .2rem .2rem;
+}
+
+#productVariants {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+}
+
+[bindfieldname] {
+    font-weight: bold;
 }

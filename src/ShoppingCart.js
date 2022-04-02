@@ -1,5 +1,4 @@
 import FetchHtmlElement from "./FetchHtmlElement.js";
-import ILoveLampIndex from "./ILoveLampIndex.js";
 import ItemBinder from "./ItemBinder.js";
 
 class ShoppingCart extends FetchHtmlElement {

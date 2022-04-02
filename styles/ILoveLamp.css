@@ -26,43 +26,25 @@ a:hover {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.486);
 }
 
-.bodyBackground {
-    background-image: url("./img/background.jpg");
-    background-size: 100% auto;
-    background-position: 0px 0px;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-}
-
 .thumbnail {
     width: 100px;
     height: 100px;
 }
 
-.button {
+.button, .dropdown {
     cursor: pointer;
-    min-height: 1em;
+    min-height: 1rem;
     text-align: center;
-    margin-left: 5px;
-    margin-right: 5px;
-    padding: 5px 5px 5px 5px;
     border: 1px solid rgba(74, 158, 255, 0.15);
     background-color: rgba(74, 228, 255, 0.15);
+    box-shadow: .1rem .1rem .2rem black;
+    padding: .2rem .2rem .2rem .2rem;
     user-select: none;
-    border-radius: 5px;
+    border-radius: .1rem;
     transition: all 500ms ease-out;
 }
 
 .button:hover {
     background-color: rgba(74, 228, 255, 1);
     border: 1px solid rgba(74, 158, 255, 1);
-}
-
-.dropdown {
-    margin-left: 5px;
-    margin-right: 5px;
-    max-width: unset;
-    min-height: 1em;
-    border: 1px solid rgba(74, 158, 255, 0.15);
-    background-color: rgba(74, 228, 255, 0.15);
 }

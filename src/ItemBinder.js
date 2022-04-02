@@ -38,10 +38,13 @@ class ItemBinder {
                 let getArrayIndex = (targetPath, startElement) => {
                     let arrayIndex = 0;
                     let indexElement = startElement;
-                    while (indexElement.parentElement && indexElement.parentElement.getAttribute("boundField") != targetPath) {
+                    while (indexElement.parentElement && indexElement.getAttribute("boundField") != targetPath) {
                         indexElement = indexElement.parentElement;
                     }
                     arrayIndex = Number(indexElement.getAttribute("boundArrayIndex"));
+                    console.log(startElement);
+                    console.log(indexElement);
+                    console.log(`${targetPath} = ${arrayIndex}`);
                     return arrayIndex;
                 }
 

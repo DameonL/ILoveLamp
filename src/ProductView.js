@@ -80,6 +80,11 @@ class ProductView extends FetchHtmlElement {
 
     #changeSelectedVariant(newIndex) {
         this.#selectedVariantIndex = newIndex;
+        let imageSelection = document.querySelector(".productDetails");
+        imageSelection = imageSelection.querySelector(`[boundField="Variants.arrayValue.values"]`);
+        imageSelection.setAttribute("boundArrayIndex", newIndex);
+        imageSelection.firstElementChild.innerHTML = "";
+        ItemBinder.bindItemToElement(this.#product.fields, imageSelection, this.#productId);
         this.#renderVariants();
         document.querySelector("#selectedVariantPrice").innerText = this.selectedVariant.mapValue.fields.Price.doubleValue;
         let mainImage = document.querySelector("#mainProductImage");
@@ -108,7 +113,7 @@ class ProductView extends FetchHtmlElement {
                 variantImage.classList.add("selectedVariant");
                 document.querySelector(`#selectedVariantName`).innerText = variantName;
                 let propertiesElement = document.querySelector("#selectedVariantProperties");
-                propertiesElement.setAttribute("boundarrayindex", variantIndex);
+                propertiesElement.parentElement.setAttribute("boundarrayindex", variantIndex);
                 ItemBinder.bindItemToElement(this.#product.fields, propertiesElement, this.#productId);
             }
             else {

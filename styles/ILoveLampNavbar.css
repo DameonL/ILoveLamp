@@ -49,6 +49,7 @@
     .navbarLinks {
         display: flex;
         flex-direction: row;
+        width: 99vw;
     }
 
     .navbarLink {
@@ -67,7 +68,6 @@
 .navbarLinks {
     position:absolute;
     transition: all 5000ms ease-out;
-    width: 90%;
 }
 
 .navbarBackground {

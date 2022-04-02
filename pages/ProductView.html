@@ -1,46 +1,66 @@
-<link rel="stylesheet" href="./styles/ProductView.css">
-<div boundField="Name.stringValue"></div>
 <title boundField="Name.stringValue"></title>
-<div class="productDetails">
-        <div boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values" fieldTemplate="productVariantImages" class="productImageList">
+<link rel="stylesheet" href="./styles/ProductView.css">
+<div>
+    <div boundField="Name.stringValue"></div>
+    <div class="productDetails">
+        <div id="productImages">
+            <div boundField="Variants.arrayValue.values" boundarrayindex="0">
+                <div boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values"
+                fieldTemplate="productVariantImages" class="productImageList">
+                </div>
+            </div>
+            <div class="productImage"><img id="mainProductImage"></div>
         </div>
-    <div class="productImage"><img id="mainProductImage"></div>
-    <div style="flex: 5; display: flex; flex-direction: column;">
-        <div id="selectedVariantName"></div>
-        <div boundField="Variants.arrayValue.values" fieldTemplate="productVariantTemplate"></div>
-        <div><h4>Features:</h4></div>
-        <div boundField="Variants.arrayValue.values">
-            <div boundArrayIndex="0" id="selectedVariantProperties">
-                <div boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields" fieldTemplate="productPropertiesDisplay"></div>
+        <div id="productInformation">
+            <div id="productSummary">
+                <div id="productVariants">
+                    <div id="selectedVariantName"></div>
+                    <div boundField="Variants.arrayValue.values" fieldTemplate="productVariantTemplate"></div>
+                </div>
+                <div>
+                    <h4>Features:</h4>
+                </div>
+                <div boundField="Variants.arrayValue.values" boundArrayIndex="0">
+                    <div id="selectedVariantProperties">
+                        <div boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields"
+                            fieldTemplate="productPropertiesDisplay"></div>
+                    </div>
+                </div>
+                <div>
+                    <h4>About This Item:</h4>
+                </div>
+                <div boundField="Description.stringValue"></div>
+            </div>
+            <div class="rightMenu">
+                <div>Quantity:</div>
+                <select id="quantitySelector" class="dropdown"></select>
+                <div class="button addToCartButton">Add to Cart</button></div>
+                <div id="selectedVariantPrice" formatItemPrice></div>
             </div>
         </div>
-        <div><h4>About This Item:</h4></div>
-        <div boundField="Description.stringValue"></div>
-    </div>
-    <div class="rightMenu">
-        <select id="quantitySelector" class="dropdown"></select>
-        <div class="button addToCartButton">Add to Cart</button></div>
-        <div id="selectedVariantPrice" formatItemPrice></div>
-    </div>
-    <template id="productVariantTemplate">
-        <div class="productVariant">
-            <div class="variantDetails">
-                <div class="productImage"><img></div>
-                <div boundField="Variants.arrayValue.values.mapValue.fields.Name.stringValue"></div>
-                <div boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values" fieldTemplate="productVariantImages" arrayRenderType="first"></div>
-                <div boundField="Variants.arrayValue.values.mapValue.fields.Price.doubleValue" formatItemPrice></div>
+        <template id="productVariantTemplate">
+            <div boundField="Variants.arrayValue.values" class="productVariant">
+                <div class="variantDetails">
+                    <div class="productImage"><img></div>
+                    <div boundField="Variants.arrayValue.values.mapValue.fields.Name.stringValue"></div>
+                    <div boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values"
+                        fieldTemplate="productVariantImages" arrayRenderType="first"></div>
+                    <div boundField="Variants.arrayValue.values.mapValue.fields.Price.doubleValue" formatItemPrice></div>
+                </div>
             </div>
-        </div>
-    </template>
-    <template id="productVariantImages">
-        <div>
-            <img boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values.stringValue" class="thumbnail">
-        </div>
-    </template>
-    <template id="productPropertiesDisplay">
-        <div>
-            <span boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields" bindFieldName></span>:
-            <span boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields"></span>
-        </div>
-    </template>
+        </template>
+        <template id="productVariantImages">
+            <div boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values">
+                <img boundField="Variants.arrayValue.values.mapValue.fields.Images.arrayValue.values.stringValue"
+                    class="thumbnail">
+            </div>
+        </template>
+        <template id="productPropertiesDisplay">
+            <div>
+                <span boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields"
+                    bindFieldName></span>:
+                <span boundField="Variants.arrayValue.values.mapValue.fields.Properties.mapValue.fields"></span>
+            </div>
+        </template>
+    </div>
 </div>

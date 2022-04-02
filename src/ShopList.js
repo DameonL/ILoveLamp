@@ -136,7 +136,7 @@ class ShopList extends FetchHtmlElement {
 
         data = JSON.parse(data);
         let products = [];
-        let indexElement = document.querySelector("ilovelamp-index");
+        let indexElement = document.querySelector(`ilovelamp-index`);
         for (let item of data) {
             if (item.document) {
                 products.push(item.document);
