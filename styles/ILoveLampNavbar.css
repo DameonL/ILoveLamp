@@ -3,7 +3,7 @@
         display: block;
         cursor: pointer;
         width: 5vw;
-        font-size: 3em;
+        font-size: 3rem;
         transition: color 500ms ease-out;
     }
 
@@ -14,8 +14,8 @@
 
     .navbarLink {
         transition: all 500ms ease-out;
-        border-radius: 5px;
-        font-size: 2.5em;
+        border-radius: .3rem;
+        font-size: 2.5rem;
         width: 100%;
         padding: 2px 5px 2px 5px;
     }
@@ -30,7 +30,7 @@
         background-color: rgb(154, 204, 250, 0);
     }
 
-    .navbarHamburger:hover + .navbarLinks, .navbarHamburger:focus + .navbarLinks, .navbarLinks:hover {
+    .navbarHamburger:hover + .navbarLinks, .navbarHamburger:focus + .navbarLinks, .navbarLinks:not([closed]):hover {
         display: flex;
         flex-direction: column;
         background-color: rgb(154, 204, 250, 0.95);
@@ -61,7 +61,7 @@
         margin-left: auto;
         font-size: 2rem;
         top: -3rem;
-        min-width: 3em;
+        min-width: 3rem;
     }
 }
 
@@ -72,7 +72,7 @@
 
 .navbarBackground {
     padding: 10px 10px 10px 10px;
-    min-height: 3em;
+    min-height: 3rem;
     height: 15vh;
     background: linear-gradient(rgb(225, 225, 255, 1), rgba(225, 225, 255, 1) 75%, rgb(225, 225, 255, 0));
     justify-content: space-evenly;

@@ -31,6 +31,7 @@ class FetchHtmlElement extends HTMLElement {
         this.#contentDiv.innerHtml = "";
         let pageHtml = await fetch(pageUrl);
         this.#contentDiv.innerHTML = await pageHtml.text();
+        this.#loadScripts(this.#contentDiv);
         this.#updateTitle();
         for (let handler of this.#onHtmlLoadedHandlers) {
             handler();
@@ -42,6 +43,22 @@ class FetchHtmlElement extends HTMLElement {
             if (newValue) {
                 this.reloadPage(newValue);
             }
+        }
+    }
+
+    #loadScripts(rootElement) {
+        let scriptElements = rootElement.querySelectorAll("script");
+        for (let scriptElement of scriptElements) {
+            let newScript = document.createElement("script");
+            if (scriptElement.innerHTML) {
+                newScript.innerHTML = scriptElement.innerHTML;
+            }
+
+            if (scriptElement.src) {
+                newScript.src = scriptElement.src;
+            }
+
+            scriptElement.replaceWith(newScript);
         }
     }
 
