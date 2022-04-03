@@ -99,6 +99,7 @@ class ProductView extends FetchHtmlElement {
             });
         }
         this.#formatPrices();
+
     }
 
     #renderVariants() {

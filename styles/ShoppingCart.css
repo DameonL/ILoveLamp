@@ -14,6 +14,10 @@
     bottom: 0px;
 }
 
+#shoppingCartBackground[open] {
+    display: block;
+}
+
 #shoppingCart {
     position: absolute;
     background-color: rgb(240, 248, 255);
@@ -95,4 +99,16 @@
 #shoppingCartIcon {
     width: 1.5em;
     height: 1.5em;
+}
+
+.button.quantityPlus, .button.quantityMinus {
+    width: 1rem;
+}
+
+.cartQuantity > [boundField="purchaseQuantity.doubleValue"] {
+    margin: 0rem .4rem 0rem .4rem;
+}
+
+#shoppingCartItemDeleteButton {
+    margin-left: 1rem;
 }

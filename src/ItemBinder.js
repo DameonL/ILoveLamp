@@ -42,9 +42,6 @@ class ItemBinder {
                         indexElement = indexElement.parentElement;
                     }
                     arrayIndex = Number(indexElement.getAttribute("boundArrayIndex"));
-                    console.log(startElement);
-                    console.log(indexElement);
-                    console.log(`${targetPath} = ${arrayIndex}`);
                     return arrayIndex;
                 }
 

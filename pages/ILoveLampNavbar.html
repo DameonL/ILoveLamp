@@ -3,9 +3,9 @@
     <div class="navbarLogo"><a href="#page=">I Love Lamp</a></div>
     <div class="navbarHamburger" tabindex="-1">☰</div>
     <div class="navbarLinks">
-        <div class="navbarLink"><a href="#page=Shop" onclick="this.blur()">Shop</a></div>
+        <div class="navbarLink"><a href="#page=Shop" onclick="document.activeElement.blur(); console.log(document.activeElement);">Shop</a></div>
         <div class="navbarLink"><a href="#page=About" onclick="this.blur()">About</a></div>
-        <div class="navbarLink"><a href="#page=Contact">Contact</a></div>
+        <div class="navbarLink"><a href="#page=Contact" onclick="this.blur()">Contact</a></div>
         <shopping-cart class="navbarLink" id="navbarShoppingCart" src="./pages/ShoppingCart.html"></shopping-cart>
     </div>
 </div>

@@ -11,13 +11,27 @@ class ShoppingCart extends FetchHtmlElement {
         this.addHtmlLoadedHandler(() => { this.#render(); });
     }
 
-    #toggleVisible = (event) => {
-        let cartElement = this.querySelector("#shoppingCartBackground");
-        if (cartElement.style.display === "") {
-            cartElement.style.display = "block";
-            this.#displayCartItems();
+    addToCart(cartItem) {
+        let existingItem = this.#cartData.find(x => x.productId == cartItem.productId && x.variant == cartItem.variant);
+        if (existingItem) {
+            existingItem.purchaseQuantity++;
         } else {
-            cartElement.style.display = "";
+            this.#cartData.push(cartItem);
+        }
+        this.#cartToCookie();
+        let cartElement = this.querySelector("#shoppingCartBackground");
+        if (cartElement.style.display === "") this.toggleVisible();
+    }
+    
+    toggleVisible = () => {
+        let cartElement = this.querySelector("#shoppingCartBackground");
+        if (cartElement.hasAttribute("open")) {
+            cartElement.removeAttribute("open");
+        } else {
+            cartElement.setAttribute("open", "");
+            document.querySelector(".navbarHamburger").focus();
+            cartElement.focus();
+            this.#displayCartItems();
         }
         window.scrollTo(0, 0);
     }
@@ -32,8 +46,8 @@ class ShoppingCart extends FetchHtmlElement {
         let openButton = this.querySelector("#showCartLink");
         let cartElement = this.querySelector("#shoppingCartBackground");
         let closeButton = cartElement.querySelector(".shoppingCartCloseButton");
-        openButton.addEventListener("click", this.#toggleVisible);
-        closeButton.addEventListener("click", this.#toggleVisible);
+        openButton.addEventListener("click", this.toggleVisible);
+        closeButton.addEventListener("click", this.toggleVisible);
     }
 
     async #displayCartItems() {
@@ -151,18 +165,6 @@ class ShoppingCart extends FetchHtmlElement {
 
     #cartToCookie() {
         document.cookie = "shoppingCart=" + btoa(JSON.stringify(this.#cartData));
-    }
-
-    addToCart(cartItem) {
-        let existingItem = this.#cartData.find(x => x.productId == cartItem.productId && x.variant == cartItem.variant);
-        if (existingItem) {
-            existingItem.purchaseQuantity++;
-        } else {
-            this.#cartData.push(cartItem);
-        }
-        this.#cartToCookie();
-        let cartElement = this.querySelector("#shoppingCartBackground");
-        if (cartElement.style.display === "") this.#toggleVisible();
     }
 }
 

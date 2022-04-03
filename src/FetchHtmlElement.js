@@ -1,8 +1,9 @@
 class FetchHtmlElement extends HTMLElement {
+    #onHtmlLoadedHandlers = [];
+    #contentDiv = null;
+
     static get observedAttributes() { return ["src"]; }
 
-    #onHtmlLoadedHandlers = [];
-    
     constructor() {
         super();
 
@@ -22,9 +23,14 @@ class FetchHtmlElement extends HTMLElement {
     }
 
     async reloadPage(pageUrl) {
-        this.innerHtml = "";
+        if (!this.#contentDiv) {
+            this.#contentDiv = document.createElement("div");
+            this.appendChild(this.#contentDiv);
+        }
+
+        this.#contentDiv.innerHtml = "";
         let pageHtml = await fetch(pageUrl);
-        this.innerHTML = await pageHtml.text();
+        this.#contentDiv.innerHTML = await pageHtml.text();
         this.#updateTitle();
         for (let handler of this.#onHtmlLoadedHandlers) {
             handler();
