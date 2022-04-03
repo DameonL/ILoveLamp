@@ -1,19 +1,23 @@
 <link rel="stylesheet" href="./styles/ILoveLampNavbar.css">
 <div class="navbarBackground">
     <div class="navbarLogo"><a href="#page=">I Love Lamp</a></div>
-    <div class="navbarHamburger" tabindex="-1">☰</div>
-    <div class="navbarLinks">
-        <script>
-            function closeNavMenu() {
-                document.querySelector('.navbarLinks').setAttribute('closed', '');
-                setTimeout(() => {
-                    document.querySelector('.navbarLinks').removeAttribute("closed");
-                }, 1000);
-            }
-        </script>
-        <div class="navbarLink"><a href="#page=Shop" onclick="closeNavMenu();">Shop</a></div>
-        <div class="navbarLink"><a href="#page=About" onclick="closeNavMenu();">About</a></div>
-        <div class="navbarLink"><a href="#page=Contact" onclick="closeNavMenu();">Contact</a></div>
-        <shopping-cart class="navbarLink" id="navbarShoppingCart" src="./pages/ShoppingCart.html"></shopping-cart>
+    <div id="navbarMenu">
+        <div>
+            <div class="navbarHamburger" tabindex="-1">☰</div>
+            <div class="navbarLinks">
+                <script>
+                    function closeNavMenu() {
+                        document.querySelector('.navbarLinks').setAttribute('closed', '');
+                        setTimeout(() => {
+                            document.querySelector('.navbarLinks').removeAttribute("closed");
+                        }, 1000);
+                    }
+                </script>
+                <div class="navbarLink"><a href="#page=Shop" onclick="closeNavMenu()">Shop</a></div>
+                <div class="navbarLink"><a href="#page=About" onclick="closeNavMenu()">About</a></div>
+                <div class="navbarLink"><a href="#page=Contact" onclick="closeNavMenu()">Contact</a></div>
+            </div>
+        </div>
+        <shopping-cart id="navbarShoppingCart" src="./pages/ShoppingCart.html"></shopping-cart>
     </div>
 </div>
