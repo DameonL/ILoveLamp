@@ -43,6 +43,7 @@ class ProductView extends FetchHtmlElement {
             let cart = document.querySelector("shopping-cart");
             if (quantitySelector.value < 1) return;
             cart.addToCart({ productId: this.#productId, variant: this.#selectedVariantIndex, purchaseQuantity: quantitySelector.value });
+            document.querySelector("#")
         }
 
         this.querySelector(".addToCartButton").addEventListener("click", addToCartFunction);
