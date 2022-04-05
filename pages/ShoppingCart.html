@@ -1,11 +1,9 @@
 <link rel="stylesheet" href="./styles/ShoppingCart.css">
-<span id="showCartLink" tabindex="-1"><img id="shoppingCartIcon" src="./img/icons/ShoppingCart.svg"></span>
+<span id="showCartLink" tabindex="-1"><span><img id="shoppingCartIcon" src="./img/icons/ShoppingCart.svg"></span></span>
 <div id="shoppingCartBackground">
     <div id="shoppingCart">
         <div class="shoppingCartHeader">
-            <div>
-                <h3>Shopping Cart</h3>
-            </div>
+            <h3>Shopping Cart</h3>
             <div class="shoppingCartCloseButton" tabindex="-1">X</div>
         </div>
         <div id="cartItemsRender"></div>
@@ -21,9 +19,14 @@
     <div>
         <div class="shoppingCartItem">
             <div class="shoppingCartItemInfo">
-                <div boundField="Name.stringValue"></div>
-                <div class="shoppingCartVariantName" boundField="shortDescription.stringValue"></div>
-                <img boundField="image.stringValue" class="thumbnail">
+                <div class="shopProductThumbImage"><img boundField="image.stringValue" style="cursor:pointer"></div>
+                <div class="shoppingCartNameAndPrice">
+                    <div>
+                        <div boundField="Name.stringValue"></div>
+                        <div class="shoppingCartVariantName" boundField="shortDescription.stringValue"></div>
+                    </div>
+                    <div boundField="price.doubleValue" class="shoppingCartItemPrice"></div>
+                </div>
                 <div class="cartQuantity">
                     <div>Quantity:</div>
                     <div class="button quantityPlus">+</div>
@@ -32,7 +35,6 @@
                     <div class="button" id="shoppingCartItemDeleteButton">Delete</div>
                 </div>
             </div>
-            <div boundField="price.doubleValue" class="shoppingCartItemPrice"></div>
         </div>
         <hr>
     </div>

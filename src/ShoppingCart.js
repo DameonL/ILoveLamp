@@ -99,6 +99,7 @@ class ShoppingCart extends FetchHtmlElement {
             newNode = this.#createCartItemNode(cartTemplate, product, cartItem, itemIndex);
             renderNode.appendChild(newNode);
         }
+        newNode.querySelector(".shopProductThumbImage").addEventListener("click", () => { window.location.hash=`page=Product&product=${cartItem.productId}`; this.toggleVisible();});
 
         this.#setItemFields(product, cartItem, variant, cartItem.purchaseQuantity * price);
         this.#updateTotal();
