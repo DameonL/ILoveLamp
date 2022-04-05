@@ -1,4 +1,4 @@
-@media screen and (max-width: 1199px) {
+@media screen and (max-width: 1023px) {
     .productDetails {
         flex-direction: column;
     }
@@ -16,7 +16,7 @@
     }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1024px) {
     #productImages {
         flex-direction: row;
     }

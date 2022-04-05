@@ -1,3 +1,37 @@
+@media screen and (max-width: 1023px) {
+    #shoppingCart {
+        padding: 0rem 0rem 0rem 0rem;
+        left: 0px;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+    }
+
+    .shoppingCartNameAndPrice {
+        flex-direction: column;
+    }}
+
+@media screen and (min-width: 1024px) {
+    #shoppingCart {
+        padding: 2rem 2rem 2rem 2rem;
+        left: 5%;
+        right: 5%;
+        top: 5%;
+        bottom: 5%;
+    }
+
+    .shoppingCartNameAndPrice {
+        flex-direction: row;
+    }
+
+    shopping-cart {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+    
+}
+
 #showCartLink {
     cursor: pointer;
     text-align: right;
@@ -21,11 +55,6 @@
 #shoppingCart {
     position: absolute;
     background-color: rgb(240, 248, 255);
-    padding: 25px 25px 25px 25px;
-    left: 5%;
-    right: 5%;
-    top: 5%;
-    bottom: 5%;
     font-size: 1.5rem;
     line-height: 1.5rem;
     max-height: 100%;
@@ -34,6 +63,9 @@
 #cartItemsRender {
     overflow-y: auto;
     max-height: 80%;
+    border-width: 0.2rem;
+    border-style: solid;
+    border-color: black rgba(0, 68, 255, 0.15) rgba(0, 68, 255, 0.15) black;
 }
 
 .cartQuantity { 
@@ -43,7 +75,7 @@
 }
 
 .shoppingCartItem {
-    padding: 10px 10px 10px 10px;
+    padding: 1rem 1rem 1rem 1rem;
     display: flex;
     flex-direction: row;
 }
@@ -64,25 +96,25 @@
 }
 
 .shoppingCartHeader {
-    background-color: rgba(0, 68, 255, 0.15);
+    border: 0.2rem solid rgba(0, 0, 0, 0.15);
+    text-align: center;
     height: 10%;
     display: flex;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: .3rem;
+    padding-right: .3rem;
 }
 
-.shoppingCartHeader > div {
-    margin-top: auto;
-    margin-bottom: auto;
+.shoppingCartHeader h3 {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .shoppingCartCloseButton {
-    margin-left: auto;
     cursor: pointer;
 }
 
 #cartTotal {
-    padding: 10px 10px 10px 10px;
+    padding: .3rem .3rem .3rem .3rem;
 }
 
 .shoppingCartTotal {
@@ -111,4 +143,8 @@
 
 #shoppingCartItemDeleteButton {
     margin-left: 1rem;
+}
+
+.shoppingCartNameAndPrice {
+    display: flex;
 }
