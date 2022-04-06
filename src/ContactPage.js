@@ -3,10 +3,11 @@ import FetchHtmlElement from "./FetchHtmlElement.js";
 class ContactPage extends FetchHtmlElement {
     constructor() {
         super();
-        this.addHtmlLoadedHandler(() => this.#loadPage());
+        this.addHtmlLoadedHandler(() => this.#pageLoaded());
     }
 
-    async #loadPage() {
+    async #pageLoaded() {
+        let submitButton = this.getElementById("submitButton");
     }
 }
 
