@@ -1,3 +1,7 @@
+:root {
+    --navbarHeight: 15vh;
+}
+
 @media screen and (max-width: 1023px) {
     .navbarHamburger {
         display: block;
@@ -27,7 +31,7 @@
     .navbarLinks {
         display: none;
         border-radius: 5px;
-        background-color: rgb(154, 204, 250, 0);
+        background-color: rgb(225, 225, 255, 0);
     }
 
     .navbarHamburger:hover + .navbarLinks, .navbarHamburger:focus + .navbarLinks, .navbarLinks:not([closed]):hover {
@@ -77,7 +81,7 @@
 .navbarBackground {
     padding: 10px 10px 10px 10px;
     min-height: 3rem;
-    height: 15vh;
+    height: var(--navbarHeight);
     background: linear-gradient(rgb(225, 225, 255, 1), rgba(225, 225, 255, 1) 75%, rgb(225, 225, 255, 0));
     justify-content: space-evenly;
     transition: all 500ms ease-out;
