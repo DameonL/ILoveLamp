@@ -1,0 +1,24 @@
+#contactPage {
+    margin: 1rem 1rem 1rem 1rem;
+    font-size: 1.25rem;
+}
+
+#contactPage input, #contactPage textarea, #contactPage select, #contactPage button {
+    font-size: 1.25rem;
+    border: .1rem solid #ccc;
+    width: 90%;
+}
+
+#contactPage :invalid:not(form) {
+    border: .1rem solid red;
+}
+
+#contactFormMessage {
+    width: 90%;
+    height: 15rem;
+}
+
+:valid+.invalidFormMarker
+{
+    display: none;
+}

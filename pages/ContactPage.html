@@ -1,10 +1,24 @@
-<div id="aboutPage">
+<div id="contactPage">
     <title>Contact</title>
     <link rel="stylesheet" href="./styles/Contact.css">
     <div>
         <h3>Contact Us</h3>
-        <form>
-            <button action="submit">Submit</button>
+        <div>Need support? Have feedback? We're here for you!</div>
+        <form id="contactForm">
+            <div id="completeNotification">Please complete all items.</div>
+            <div><input type="text" name="name" placeholder="Name" required><span class="invalidFormMarker">*</span></div>
+            <div><input type="text" name="email" placeholder="Email" required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"><span class="invalidFormMarker">*</span></div>
+            
+            <select name="topic" required>
+                <option value="">Select a topic</option>
+                <option value="">General</option>
+                <option value="">Feedback</option>
+                <option value="">Product Support</option>
+            </select>
+            <div>
+                <textarea id="contactFormMessage" name="message" placeholder="Message" required></textarea>
+            </div>
+            <button class="button" id="submitButton">Submit</button>
         </form>
     </div>
 </div>

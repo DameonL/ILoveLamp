@@ -8,7 +8,24 @@ class ShoppingCart extends FetchHtmlElement {
     constructor() {
         super();
 
-        this.addHtmlLoadedHandler(() => { this.#render(); });
+        window.addEventListener("hashchange", () => {
+            let cartElement = this.querySelector("#shoppingCartBackground");
+            let params = window.location.hash.replaceAll("#", "");
+            params = new URLSearchParams(params);
+    
+            if (params.has("showcart")) {
+                cartElement.setAttribute("open", "");
+                this.#displayCartItems();
+            } else {
+                cartElement.removeAttribute("open");
+            }
+        });
+
+        this.addHtmlLoadedHandler(() => {
+            this.#render();
+            let checkoutButton = this.querySelector("#checkoutButton");
+            checkoutButton.addEventListener("click", () => { alert("Sorry, there's no checkout feature implemented, but thank you for trying to buy lamps from my portfolio site!"); });
+        });
     }
 
     addToCart(cartItem) {
@@ -24,16 +41,15 @@ class ShoppingCart extends FetchHtmlElement {
     }
     
     toggleVisible = () => {
-        let cartElement = this.querySelector("#shoppingCartBackground");
-        if (cartElement.hasAttribute("open")) {
-            cartElement.removeAttribute("open");
+        let params = window.location.hash.replaceAll("#", "");
+        params = new URLSearchParams(params);
+        if (params.has("showcart")) {
+            params.delete("showcart");
         } else {
-            cartElement.setAttribute("open", "");
-            document.querySelector(".navbarHamburger").focus();
-            cartElement.focus();
-            this.#displayCartItems();
+            params.set("showcart", "true");
         }
-        window.scrollTo(0, 0);
+        
+        window.location.hash = params.toString();
     }
 
     async #render() {

@@ -46,6 +46,7 @@
     right: 0px;
     top: 0px;
     bottom: 0px;
+    z-index: 5;
 }
 
 #shoppingCartBackground[open] {
@@ -121,7 +122,6 @@
     margin-left: auto;
     text-align: right;
     font-weight: bold;
-    height: 10%;
 }
 
 .shoppingCartVariantName {
@@ -161,4 +161,10 @@
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
+}
+
+#checkoutButton {
+    max-width: 10rem;
+    margin-left: auto;
+    margin-right: .2rem;
 }
