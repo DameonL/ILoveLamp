@@ -1,4 +1,4 @@
-This is a basic e-commerce example site, featuring a responsive, single-page app with front-end routing.
+This is a basic e-commerce example site, featuring a responsive, single-page app with front-end routing, using only vanilla Javascript.
 
 Product data is stored in a firestore database and retrieved using Google Firestore's REST API.
 
